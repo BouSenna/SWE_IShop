@@ -37,6 +37,12 @@ public class AdminHomepageForm {
 		frame.getContentPane().add(lblNewLabel);
 		
 		JButton addItem_button = new JButton("Add new item");
+		addItem_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
+				addItemForm newForm = new addItemForm();
+			}
+		});
 		addItem_button.setForeground(Color.BLACK);
 		addItem_button.setFont(new Font("Corbel", Font.PLAIN, 23));
 		addItem_button.setBackground(Color.LIGHT_GRAY);
@@ -57,6 +63,12 @@ public class AdminHomepageForm {
 		frame.getContentPane().add(addBrand_button);
 		
 		JButton viewReq_button = new JButton("View requests");
+		viewReq_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
+				viewRequests newReq = new viewRequests();
+			}
+		});
 		viewReq_button.setForeground(Color.BLACK);
 		viewReq_button.setFont(new Font("Corbel", Font.PLAIN, 23));
 		viewReq_button.setBackground(Color.LIGHT_GRAY);
