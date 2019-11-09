@@ -12,17 +12,11 @@ import Database.DBConnect;
 public class Admin extends User implements AdminInterface{
     private String mName;
     
-
     public Admin(String name){
         mName = name;
     }
 
     public void setName(String name) {this.mName = name;}
     public String getName() {return this.mName;}
-    
-  
-	/*
-	 * public void updateCatalog(int price, double ID, Product_Specs prodspecs){ new
-	 * Product (price, ID, prodspecs); }
-	 */
+ 
 }

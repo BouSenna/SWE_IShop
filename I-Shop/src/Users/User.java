@@ -28,6 +28,7 @@ public abstract class User {
 						return type.ordinal();
 				}
         	}
+        	
     	} catch (SQLException e) {
 			e.printStackTrace();
     	} 

@@ -10,11 +10,15 @@ public class Store implements StoreInterface{
 	private String mStoreType;
 	private String mAddress;
 	private String mCategory;
+	private String mApproval;
 	private int mOwnerLicense;
 	
 	private Connection connection;
     private Statement stmt = null;
 
+	public String getmApproval() {return mApproval;}
+	public void setmApproval(String mApproval) {this.mApproval = mApproval;}
+	
 	public void setName(String name) {this.mStoreName = name;}
     public String getName() {return this.mStoreName;}
     
@@ -33,11 +37,11 @@ public class Store implements StoreInterface{
         this.mCategory = Category;
         this.mAddress = address;
         this.mStoreType = Type;
-        this.mOwnerLicense = license;
+        this.mApproval = "no";
         try {
 			 stmt = connection.createStatement();
-			 stmt.execute("insert into Store (License, StoreName, StoreType, Address, Category) values"
-			 		+ " ('"+mOwnerLicense+"','"+mStoreName+"','"+mStoreType+"','"+mAddress+"','"+mCategory+"')");
+			 stmt.execute("insert into Store ( StoreName, StoreType, Address, Category,Approval) values ('"+mStoreName+"','"+mStoreType+"','"+mAddress+"','"+mCategory+"','"+mApproval+"')");
+	
 		} catch (SQLException e) {
 			System.out.println("Error executing query");
 			e.printStackTrace();

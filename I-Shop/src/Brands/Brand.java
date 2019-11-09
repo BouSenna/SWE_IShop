@@ -21,6 +21,7 @@ import Enums.Category;
 public class Brand implements BrandInterface {
 	private String mBrandName;
 	private String mCategory;
+	
 	private Connection connection;
     private Statement stmt = null;
 
@@ -42,6 +43,23 @@ public class Brand implements BrandInterface {
 			System.out.println("Error executing query");
 			e.printStackTrace();
 		}
-
     }
+    
+   public boolean matches(Brand brand) {
+	   try {
+		    ResultSet resultset = null;
+       		connection = DBConnect.DBConnect();
+       		stmt = connection.createStatement();
+            resultset = stmt.executeQuery("select BrandName, Category from Brand");
+            while(resultset.next()) {
+				if((resultset.getString(1).toUpperCase()).equals(brand.mBrandName.toUpperCase()) && 
+						(resultset.getString(2).toUpperCase()).equals(brand.mCategory.toUpperCase()))
+				    return true;
+            }
+            
+	   } catch (SQLException e) {
+			e.printStackTrace();
+	   }
+       return false;
+   }
 }

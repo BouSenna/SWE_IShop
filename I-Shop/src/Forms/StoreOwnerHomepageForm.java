@@ -50,6 +50,12 @@ public class StoreOwnerHomepageForm {
 		frame.getContentPane().add(addStore_button);
 		
 		JButton addProduct_button = new JButton("Add new product");
+		addProduct_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.setVisible(false);
+				addProductForm newForm = new addProductForm();
+			}
+		});
 		addProduct_button.setForeground(Color.BLACK);
 		addProduct_button.setFont(new Font("Corbel", Font.PLAIN, 23));
 		addProduct_button.setBackground(Color.LIGHT_GRAY);
