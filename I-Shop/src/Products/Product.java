@@ -14,6 +14,8 @@ public class Product implements ProductHandler {
 	private int mStore;
 	private int mBrand;
 	private int mItem;
+	private int mInitialQuantity;
+	private int mCurrentQuantity;
 	
 	Connection connection= null;
     Statement stmt = null;
@@ -43,17 +45,19 @@ public class Product implements ProductHandler {
 	public int getmItem() {return mItem;}
 	public void setmItem(int mItem) {this.mItem = mItem;}
  
-	public void addProduct(String name, int price, int store, int brand, int item) {
+	public void addProduct(String name, int price, int store, int brand, int item, int quantity) {
 		try {
 			this.mBrand = brand;
 			this.mItem = item;
 			this.mStore = store;
 			this.mPrice = price;
 			this.mName = name;
+			this.mInitialQuantity = quantity;
+			this.mCurrentQuantity = quantity;
 		    connection = DBConnect.DBConnect();
 	        stmt = connection.createStatement();
-	        stmt.execute("insert into product(ProductName, ProductPrice, StoreID, BrandID, ItemID) values"
-	        		+ " ('"+mName+"','"+mPrice+"', '"+mStore+"', '"+mBrand+"', '"+mItem+"')");
+	        stmt.execute("insert into product(ProductName, ProductPrice, StoreID, BrandID, ItemID, InitialQuantity, Quantity) values"
+	        		+ " ('"+mName+"','"+mPrice+"', '"+mStore+"', '"+mBrand+"', '"+mItem+"', '"+mInitialQuantity+"', '"+mCurrentQuantity+"')");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}   

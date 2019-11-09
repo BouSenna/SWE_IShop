@@ -74,8 +74,18 @@ public class addProductForm {
 		
 		JLabel SName_label = new JLabel("Your Store ID");
 		SName_label.setFont(new Font("Corbel", Font.PLAIN, 23));
-		SName_label.setBounds(463, 74, 183, 29);
+		SName_label.setBounds(463, 71, 183, 29);
 		frame.getContentPane().add(SName_label);
+		
+		JLabel quantity_label = new JLabel("Quantity");
+		quantity_label.setFont(new Font("Corbel", Font.PLAIN, 23));
+		quantity_label.setBounds(463, 144, 183, 29);
+		frame.getContentPane().add(quantity_label);
+		
+		JTextField Quantity_textField = new JTextField();	
+		Quantity_textField.setBounds(463, 173, 299, 26);
+		frame.getContentPane().add(Quantity_textField);
+		Quantity_textField.setColumns(10);
 		
 		JTextField Name_textField = new JTextField();	
 		Name_textField.setBounds(57, 102, 299, 26);
@@ -137,7 +147,7 @@ public class addProductForm {
 					
 		            Product p = new Product();
 					p.addProduct(Name_textField.getText(), Integer.parseInt(Price_textField.getText()), 
-							Integer.parseInt(Store_textField.getText()), arr.get(0), arr.get(1));
+							Integer.parseInt(Store_textField.getText()), arr.get(0), arr.get(1), Integer.parseInt(Quantity_textField.getText()));
 				} catch (SQLException e) {
 					e.printStackTrace();
 		    	}

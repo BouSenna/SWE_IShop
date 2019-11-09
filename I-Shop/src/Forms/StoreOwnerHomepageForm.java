@@ -63,6 +63,12 @@ public class StoreOwnerHomepageForm {
 		frame.getContentPane().add(addProduct_button);
 		
 		JButton viewStat_button = new JButton("View Statistics");
+		viewStat_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.setVisible(false);
+				ViewStatistics newForm = new ViewStatistics();
+			}
+		});
 		viewStat_button.setForeground(Color.BLACK);
 		viewStat_button.setFont(new Font("Corbel", Font.PLAIN, 23));
 		viewStat_button.setBackground(Color.LIGHT_GRAY);
