@@ -10,26 +10,28 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Item implements ItemHandler {
-    private float mMinPrice;
-    private float mMaxPrice;
+    private int mMinPrice;
+    private int mMaxPrice;
     private Item_Specs mItemspecs;
     Connection connection= null;
     Statement stmt = null;
 
     public Item() {}
-	public Item(float minPrice, float maxPrice, Item_Specs itemspecs){
+	public Item(int minPrice, int maxPrice, Item_Specs itemspecs){
         mMinPrice = minPrice;
         mMaxPrice = maxPrice;
         mItemspecs = itemspecs;
 	}    
    
-	public float getmMinPrice() {return mMinPrice;}
-	public void setmMinPrice(float mMinPrice) {this.mMinPrice = mMinPrice;}
+	public int getmMinPrice() {return mMinPrice;}
+	public void setmMinPrice(int mMinPrice) {this.mMinPrice = mMinPrice;}
 
-	public float getmMaxPrice() {return mMaxPrice;}
-	public void setmMaxPrice(float mMaxPrice) {this.mMaxPrice = mMaxPrice;}
+	public int getmMaxPrice() {return mMaxPrice;}
+	public void setmMaxPrice(int mMaxPrice) {this.mMaxPrice = mMaxPrice;}
 	
-    public void addItem(float minPrice, float maxPrice) {
+    public void addItem(int minPrice, int maxPrice) {
+    	mMaxPrice = maxPrice;
+    	mMinPrice = minPrice;
     	connection = DBConnect.DBConnect();
     	try {
 			stmt=connection.createStatement();

@@ -40,7 +40,7 @@ public class AdminHomepageForm {
 		addItem_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-			//	addItemForm newForm = new addItemForm();
+		     	addItemForm newForm = new addItemForm();
 			}
 		});
 		addItem_button.setForeground(Color.BLACK);

@@ -92,7 +92,8 @@ public class addItemForm {
 			public void actionPerformed(ActionEvent arg0) {
 				Item newItem = new Item();
 				Item_Specs newSpec = new Item_Specs();
-				newItem.addItem(Float.parseFloat(MinimumPrice_textField.getText()),Float.parseFloat(MaximumPrice_textField.getText()));
+				System.out.println(Integer.parseInt(MinimumPrice_textField.getText()));
+				newItem.addItem(Integer.parseInt(MinimumPrice_textField.getText()), Integer.parseInt(MaximumPrice_textField.getText()));
 				newSpec.addItemSpecs(Name_textField.getText(), categorycomboBox.getSelectedItem().toString());
 			}
 		});

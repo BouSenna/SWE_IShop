@@ -1,12 +1,12 @@
 package Item;
 
 public interface ItemHandler {
-	public float getmMinPrice();
-	public void setmMinPrice(float mMinPrice);
+	public int getmMinPrice();
+	public void setmMinPrice(int mMinPrice);
 
-	public float getmMaxPrice();
-	public void setmMaxPrice(float mMaxPrice);
+	public int getmMaxPrice();
+	public void setmMaxPrice(int mMaxPrice);
 	
-    public void addItem(float minPrice, float maxPrice);
+    public void addItem(int minPrice, int maxPrice);
     public boolean inRange(int num);
 }
