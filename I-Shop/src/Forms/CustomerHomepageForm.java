@@ -31,7 +31,7 @@ public class CustomerHomepageForm {
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("I-Shop Customer Home");
-		lblNewLabel.setBounds(219, 16, 858, 39);
+		lblNewLabel.setBounds(219, 16, 454, 39);
 		lblNewLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 35));
 		frame.getContentPane().add(lblNewLabel);
 		
@@ -45,9 +45,9 @@ public class CustomerHomepageForm {
 		ViewProducts_button.setForeground(Color.BLACK);
 		ViewProducts_button.setFont(new Font("Corbel", Font.PLAIN, 23));
 		ViewProducts_button.setBackground(Color.LIGHT_GRAY);
-		ViewProducts_button.setBounds(313, 152, 237, 39);
+		ViewProducts_button.setBounds(320, 159, 237, 39);
 		frame.getContentPane().add(ViewProducts_button);
-		
+	
 	}
 
 }
