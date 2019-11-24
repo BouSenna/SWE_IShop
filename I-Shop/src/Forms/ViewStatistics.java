@@ -19,6 +19,8 @@ import javax.swing.JTextField;
 
 import Database.DBConnect;
 import Products.Product;
+import java.awt.SystemColor;
+import javax.swing.SwingConstants;
 
 public class ViewStatistics {
 
@@ -90,5 +92,10 @@ public class ViewStatistics {
 	btnNewButton.setFont(new Font("Corbel", Font.PLAIN, 23));
 	btnNewButton.setBounds(596, 122, 175, 29);
 	frame.getContentPane().add(btnNewButton);
+	
+	JLabel lblViewAdminStatistics = new JLabel("View Admin Statistics");
+	lblViewAdminStatistics.setForeground(SystemColor.textHighlight);
+	lblViewAdminStatistics.setBounds(664, 406, 105, 37);
+	frame.getContentPane().add(lblViewAdminStatistics);
 	}
 }

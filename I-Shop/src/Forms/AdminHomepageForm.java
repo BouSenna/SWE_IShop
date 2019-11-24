@@ -74,7 +74,19 @@ public class AdminHomepageForm {
 		viewReq_button.setBackground(Color.LIGHT_GRAY);
 		viewReq_button.setBounds(313, 262, 237, 39);
 		frame.getContentPane().add(viewReq_button);
+		
+		JButton btnAddStatistics = new JButton("Add statistics");
+		btnAddStatistics.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.setVisible(false);
+				AdminStatistics adminstatistics = new AdminStatistics();
+			}
+			
+		});
+		btnAddStatistics.setForeground(Color.BLACK);
+		btnAddStatistics.setFont(new Font("Corbel", Font.PLAIN, 23));
+		btnAddStatistics.setBackground(Color.LIGHT_GRAY);
+		btnAddStatistics.setBounds(313, 318, 237, 39);
+		frame.getContentPane().add(btnAddStatistics);
 	}
-	
-
 }
