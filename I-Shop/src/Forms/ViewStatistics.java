@@ -21,6 +21,8 @@ import Database.DBConnect;
 import Products.Product;
 import java.awt.SystemColor;
 import javax.swing.SwingConstants;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ViewStatistics {
 
@@ -94,8 +96,16 @@ public class ViewStatistics {
 	frame.getContentPane().add(btnNewButton);
 	
 	JLabel lblViewAdminStatistics = new JLabel("View Admin Statistics");
+	lblViewAdminStatistics.setVisible(true);
 	lblViewAdminStatistics.setForeground(SystemColor.textHighlight);
-	lblViewAdminStatistics.setBounds(664, 406, 105, 37);
+	lblViewAdminStatistics.setBounds(628, 418, 154, 37);
 	frame.getContentPane().add(lblViewAdminStatistics);
+	lblViewAdminStatistics.addMouseListener(new MouseAdapter() {
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			MoreStatistics morestats = new MoreStatistics(Integer.parseInt(Store_textField.getText()));
+		}
+	});
+	
 	}
 }
