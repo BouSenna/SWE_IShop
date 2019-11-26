@@ -54,12 +54,13 @@ public class MoreStatistics {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setFont(new Font("Corbel", Font.PLAIN, 23));
 		frame.setBounds(100, 100, 880, 505);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblBestSeller = new JLabel("Best seller:");
-		lblBestSeller.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 20));
+		lblBestSeller.setFont(new Font("Corbel", Font.PLAIN, 23));
 		lblBestSeller.setBounds(108, 112, 151, 84);
 		frame.getContentPane().add(lblBestSeller);
 		
@@ -75,7 +76,7 @@ public class MoreStatistics {
 		lblBestsellerinvisible.setVisible(false);
 		
 		JLabel lblnosold = new JLabel("Total number of products sold:");
-		lblnosold.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 20));
+		lblnosold.setFont(new Font("Corbel", Font.PLAIN, 23));
 		lblnosold.setBounds(108, 227, 377, 48);
 		frame.getContentPane().add(lblnosold);
 		
@@ -86,7 +87,7 @@ public class MoreStatistics {
 		lblNosoldinvisible.setVisible(false);
 		
 		JLabel lblRemainingQuantityOf = new JLabel("Remaining quantity of best seller:");
-		lblRemainingQuantityOf.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 20));
+		lblRemainingQuantityOf.setFont(new Font("Corbel", Font.PLAIN, 23));
 		lblRemainingQuantityOf.setBounds(108, 179, 425, 48);
 		frame.getContentPane().add(lblRemainingQuantityOf);
 		
