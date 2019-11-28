@@ -140,36 +140,6 @@ public class MoreStatistics {
 					
 					e.printStackTrace();
 				}
-				
-				
-				/*
-				 * try { connection = DBConnect.DBConnect(); stmt1 =
-				 * connection.createStatement(); stmt2 = connection.createStatement(); stmt3 =
-				 * connection.createStatement(); stmt2.setMaxRows(1); resultset1 =
-				 * stmt1.executeQuery("select [statistics] from store where StoreID='"+storeid+
-				 * "'"); resultset2 = stmt2.
-				 * executeQuery("select  ProductName,min(InitialQuantity-Quantity) as bestseller from product where storeid='"
-				 * +storeid+"'  group by ProductName"); resultset3 =
-				 * stmt3.executeQuery("select sum(Quantity) from product where storeid='"
-				 * +storeid+"'"); while(resultset1.next()) {
-				 * if(resultset1.getObject(1).equals(-1)) {
-				 * lblBestsellerinvisible.setText("No info");
-				 * lblBestsellerinvisible.setVisible(true);
-				 * lblNosoldinvisible.setText("No info"); lblNosoldinvisible.setVisible(true);
-				 * remaininginvisible.setText("No info"); remaininginvisible.setVisible(true); }
-				 * else { while(resultset2.next()) {
-				 * lblBestsellerinvisible.setText("Most purchased product: " +
-				 * resultset2.getString(1)); lblBestsellerinvisible.setVisible(true);
-				 * remaininginvisible.setText(resultset2.getString(2));
-				 * remaininginvisible.setVisible(true); while(resultset3.next()) {
-				 * lblNosoldinvisible.setText(resultset3.getString(1));
-				 * lblNosoldinvisible.setVisible(true); } }
-				 * 
-				 * } }
-				 * 
-				 * } catch (SQLException e) { e.printStackTrace(); }
-				 */
-				
 			}
 		});
 		btnNewButton.setBounds(638, 404, 151, 29);
