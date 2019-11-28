@@ -1,11 +1,15 @@
 package Forms;
 
+import javax.swing.ListSelectionModel;
+import Database.DBConnect;
+import net.proteanit.sql.DbUtils;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import Database.DBConnect;
+import net.proteanit.sql.DbUtils;
 
 import java.awt.Font;
 import javax.swing.JButton;
@@ -15,14 +19,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.SingleSelectionModel;
+
+import java.awt.Color;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 
 public class MoreStatistics {
 
 	private int storeid;
 	private JFrame frame;
 	Connection connection;
-    Statement stmt1,stmt2,stmt3 = null;
-    ResultSet resultset1,resultset2,resultset3 = null;
+    Statement stmt,stmt1 = null;
+    ResultSet resultset,resultset1 = null;
+    String query="";
 	/**
 	 * Launch the application.
 	 */
@@ -58,92 +72,115 @@ public class MoreStatistics {
 		frame.setBounds(100, 100, 880, 505);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(263, 165, 279, 185);
+		frame.getContentPane().add(scrollPane);
 		
-		JLabel lblBestSeller = new JLabel("Best seller:");
-		lblBestSeller.setFont(new Font("Corbel", Font.PLAIN, 23));
-		lblBestSeller.setBounds(108, 112, 151, 84);
-		frame.getContentPane().add(lblBestSeller);
-		
+		JTable table = new JTable();
+	
 		JLabel lblMoreStatistics = new JLabel("More Statistics");
 		lblMoreStatistics.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 35));
 		lblMoreStatistics.setBounds(255, 16, 393, 39);
 		frame.getContentPane().add(lblMoreStatistics);
 		
-		JLabel lblBestsellerinvisible = new JLabel("bestsellerinvisible");
-		lblBestsellerinvisible.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblBestsellerinvisible.setBounds(256, 145, 377, 23);
-		frame.getContentPane().add(lblBestsellerinvisible);
-		lblBestsellerinvisible.setVisible(false);
+		JLabel lblinvisible = new JLabel("lblinvisible");
+		lblinvisible.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblinvisible.setBounds(263, 379, 279, 14);
+		frame.getContentPane().add(lblinvisible);
+		lblinvisible.setVisible(false);
 		
-		JLabel lblnosold = new JLabel("Total number of products sold:");
-		lblnosold.setFont(new Font("Corbel", Font.PLAIN, 23));
-		lblnosold.setBounds(108, 227, 377, 48);
-		frame.getContentPane().add(lblnosold);
+		JComboBox oprationcomboBox = new JComboBox();
+		oprationcomboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Count", "Best seller", "Lowest seller"}));
+		oprationcomboBox.setBounds(365, 109, 105, 20);
+		frame.getContentPane().add(oprationcomboBox);
 		
-		JLabel lblNosoldinvisible = new JLabel("nosoldinvisible");
-		lblNosoldinvisible.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNosoldinvisible.setBounds(495, 246, 158, 14);
-		frame.getContentPane().add(lblNosoldinvisible);
-		lblNosoldinvisible.setVisible(false);
-		
-		JLabel lblRemainingQuantityOf = new JLabel("Remaining quantity of best seller:");
-		lblRemainingQuantityOf.setFont(new Font("Corbel", Font.PLAIN, 23));
-		lblRemainingQuantityOf.setBounds(108, 179, 425, 48);
-		frame.getContentPane().add(lblRemainingQuantityOf);
-		
-		JLabel remaininginvisible = new JLabel("remainingquantinvisible");
-		remaininginvisible.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		remaininginvisible.setBounds(526, 199, 151, 14);
-		frame.getContentPane().add(remaininginvisible);
-		remaininginvisible.setVisible(false);
+		JComboBox comboBox = new JComboBox();
+     	comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Product", "Brand"}));
+		comboBox.setBounds(564, 109, 105, 20);
+		frame.getContentPane().add(comboBox);
 		
 		JButton btnNewButton = new JButton("Show statistics");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				connection = DBConnect.DBConnect(); 
 				try {
-		       		connection = DBConnect.DBConnect();
-		       		stmt1 = connection.createStatement();
-		       		stmt2 = connection.createStatement();
-		       		stmt3 = connection.createStatement();
-		       		stmt2.setMaxRows(1);
-		            resultset1 = stmt1.executeQuery("select [statistics] from store where StoreID='"+storeid+"'");
-		            resultset2 = stmt2.executeQuery("select  ProductName,min(InitialQuantity-Quantity) as bestseller from product where storeid='"+storeid+"'  group by ProductName");
-		            resultset3 = stmt3.executeQuery("select sum(Quantity) from product where storeid='"+storeid+"'");
-		            while(resultset1.next()) {
-		            if(resultset1.getObject(1).equals(-1)) {
-		            	lblBestsellerinvisible.setText("No info");
-		            	lblBestsellerinvisible.setVisible(true); 	
-		            	lblNosoldinvisible.setText("No info");
-		            	lblNosoldinvisible.setVisible(true); 	
-		            	remaininginvisible.setText("No info");
-		            	remaininginvisible.setVisible(true);
-		            }
-		            else {
-		            	while(resultset2.next()) {
-		            		lblBestsellerinvisible.setText("Most purchased product: " + resultset2.getString(1));
-		            		lblBestsellerinvisible.setVisible(true);	
-		            		remaininginvisible.setText(resultset2.getString(2));
-		            		remaininginvisible.setVisible(true);
-		            		while(resultset3.next()) {
-		            		lblNosoldinvisible.setText(resultset3.getString(1));
-			            	lblNosoldinvisible.setVisible(true);
-		            		}
-		            	}
-		            	
-		             }
-		           }
-		            
-				} catch (SQLException e) {
+					String selectedOp = oprationcomboBox.getSelectedItem().toString();
+					String selected = comboBox.getSelectedItem().toString();
+					stmt1 = connection.createStatement();
+					resultset1 = stmt1.executeQuery("select [statistics] from store where StoreID='"+storeid+"'");
+					while(resultset1.next()) {
+					 if(resultset1.getObject(1).equals(-1)) {
+						 lblinvisible.setText("Statistics on your store are not added yet");
+						 lblinvisible.setVisible(true);
+					 }
+					else {
+					if(selectedOp.equals("Best seller")) {
+						query = "select " +selected+"name, (initialquantity-quantity) as RemainingQuantity from product inner join brand on product.brandid = brand.brandid where storeid ='"+storeid+"' order by RemainingQuantity asc";
+					
+					}
+					else if(selectedOp.equals("Lowest seller")){
+						query =  "select " +selected+"name, (initialquantity-quantity) as RemainingQuantity from product inner join brand on product.brandid = brand.brandid where storeid ='"+storeid+"' order by RemainingQuantity desc";
+					}
+					else {
+						query = "select count(*) from " + selected;
+					}
+					stmt = connection.createStatement();
+					stmt.setMaxRows(1);
+					resultset = stmt.executeQuery(query);
+					table.setModel(DbUtils.resultSetToTableModel(resultset));
+					scrollPane.setViewportView(table);
+					table.setCellSelectionEnabled(true);
+				    ListSelectionModel cellSelectionModel = table.getSelectionModel();
+				    cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+					}
+
+				}
+				}catch (SQLException e) {
+					
 					e.printStackTrace();
-			   }
+				}
+				
+				
+				/*
+				 * try { connection = DBConnect.DBConnect(); stmt1 =
+				 * connection.createStatement(); stmt2 = connection.createStatement(); stmt3 =
+				 * connection.createStatement(); stmt2.setMaxRows(1); resultset1 =
+				 * stmt1.executeQuery("select [statistics] from store where StoreID='"+storeid+
+				 * "'"); resultset2 = stmt2.
+				 * executeQuery("select  ProductName,min(InitialQuantity-Quantity) as bestseller from product where storeid='"
+				 * +storeid+"'  group by ProductName"); resultset3 =
+				 * stmt3.executeQuery("select sum(Quantity) from product where storeid='"
+				 * +storeid+"'"); while(resultset1.next()) {
+				 * if(resultset1.getObject(1).equals(-1)) {
+				 * lblBestsellerinvisible.setText("No info");
+				 * lblBestsellerinvisible.setVisible(true);
+				 * lblNosoldinvisible.setText("No info"); lblNosoldinvisible.setVisible(true);
+				 * remaininginvisible.setText("No info"); remaininginvisible.setVisible(true); }
+				 * else { while(resultset2.next()) {
+				 * lblBestsellerinvisible.setText("Most purchased product: " +
+				 * resultset2.getString(1)); lblBestsellerinvisible.setVisible(true);
+				 * remaininginvisible.setText(resultset2.getString(2));
+				 * remaininginvisible.setVisible(true); while(resultset3.next()) {
+				 * lblNosoldinvisible.setText(resultset3.getString(1));
+				 * lblNosoldinvisible.setVisible(true); } }
+				 * 
+				 * } }
+				 * 
+				 * } catch (SQLException e) { e.printStackTrace(); }
+				 */
 				
 			}
 		});
 		btnNewButton.setBounds(638, 404, 151, 29);
 		frame.getContentPane().add(btnNewButton);
 		
+		JLabel lblChooseAnOperation = new JLabel("Choose an operation:");
+		lblChooseAnOperation.setFont(new Font("Corbel", Font.PLAIN, 23));
+		lblChooseAnOperation.setBounds(81, 98, 271, 39);
+		frame.getContentPane().add(lblChooseAnOperation);
 		
 		
-		
+	
 	}
 }
