@@ -94,18 +94,5 @@ public class ViewStatistics {
 	btnNewButton.setFont(new Font("Corbel", Font.PLAIN, 23));
 	btnNewButton.setBounds(596, 122, 175, 29);
 	frame.getContentPane().add(btnNewButton);
-	
-	JLabel lblViewAdminStatistics = new JLabel("View Admin Statistics");
-	lblViewAdminStatistics.setVisible(true);
-	lblViewAdminStatistics.setForeground(SystemColor.textHighlight);
-	lblViewAdminStatistics.setBounds(628, 418, 154, 37);
-	frame.getContentPane().add(lblViewAdminStatistics);
-	lblViewAdminStatistics.addMouseListener(new MouseAdapter() {
-		@Override
-		public void mouseClicked(MouseEvent arg0) {
-			MoreStatistics morestats = new MoreStatistics(Integer.parseInt(Store_textField.getText()));
-		}
-	});
-	
 	}
 }

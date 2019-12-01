@@ -79,7 +79,7 @@ public class AdminHomepageForm {
 		btnAddStatistics.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.setVisible(false);
-				AdminStatistics adminstatistics = new AdminStatistics();
+				MoreStatistics morestats = new MoreStatistics();
 			}
 			
 		});

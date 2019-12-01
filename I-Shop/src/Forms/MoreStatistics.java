@@ -44,7 +44,7 @@ public class MoreStatistics {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MoreStatistics window = new MoreStatistics(2);
+					MoreStatistics window = new MoreStatistics();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -56,8 +56,7 @@ public class MoreStatistics {
 	/**
 	 * Create the application.
 	 */
-	public MoreStatistics(int storeid) {
-		this.storeid = storeid;
+	public MoreStatistics() {
 		initialize();
 		frame.setVisible(true);
 		
@@ -90,15 +89,22 @@ public class MoreStatistics {
 		frame.getContentPane().add(lblinvisible);
 		lblinvisible.setVisible(false);
 		
-		JComboBox oprationcomboBox = new JComboBox();
-		oprationcomboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Count", "Best seller", "Lowest seller"}));
-		oprationcomboBox.setBounds(365, 109, 105, 20);
-		frame.getContentPane().add(oprationcomboBox);
-		
 		JComboBox comboBox = new JComboBox();
      	comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Product", "Brand"}));
 		comboBox.setBounds(564, 109, 105, 20);
 		frame.getContentPane().add(comboBox);
+		
+		JComboBox oprationcomboBox = new JComboBox();
+		oprationcomboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(oprationcomboBox.getSelectedItem().toString().equals("Count")) {
+					comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Product", "Brand" , "Customer" , "Store"}));
+				}
+			}
+		});
+		oprationcomboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Count", "Best seller", "Lowest seller"}));
+		oprationcomboBox.setBounds(365, 109, 105, 20);
+		frame.getContentPane().add(oprationcomboBox);
 		
 		JButton btnNewButton = new JButton("Show statistics");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -108,19 +114,12 @@ public class MoreStatistics {
 					String selectedOp = oprationcomboBox.getSelectedItem().toString();
 					String selected = comboBox.getSelectedItem().toString();
 					stmt1 = connection.createStatement();
-					resultset1 = stmt1.executeQuery("select [statistics] from store where StoreID='"+storeid+"'");
-					while(resultset1.next()) {
-					 if(resultset1.getObject(1).equals(-1)) {
-						 lblinvisible.setText("Statistics on your store are not added yet");
-						 lblinvisible.setVisible(true);
-					 }
-					else {
 					if(selectedOp.equals("Best seller")) {
-						query = "select " +selected+"name, (initialquantity-quantity) as RemainingQuantity from product inner join brand on product.brandid = brand.brandid where storeid ='"+storeid+"' order by RemainingQuantity asc";
+						query = "select " +selected+"name, (initialquantity-quantity) as RemainingQuantity from product inner join brand on product.brandid = brand.brandid  order by RemainingQuantity asc";
 					
 					}
 					else if(selectedOp.equals("Lowest seller")){
-						query =  "select " +selected+"name, (initialquantity-quantity) as RemainingQuantity from product inner join brand on product.brandid = brand.brandid where storeid ='"+storeid+"' order by RemainingQuantity desc";
+						query =  "select " +selected+"name, (initialquantity-quantity) as RemainingQuantity from product inner join brand on product.brandid = brand.brandid order by RemainingQuantity desc";
 					}
 					else {
 						query = "select count(*) from " + selected;
@@ -133,9 +132,7 @@ public class MoreStatistics {
 					table.setCellSelectionEnabled(true);
 				    ListSelectionModel cellSelectionModel = table.getSelectionModel();
 				    cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-					}
-
-				}
+					
 				}catch (SQLException e) {
 					
 					e.printStackTrace();
