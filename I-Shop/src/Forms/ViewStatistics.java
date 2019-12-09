@@ -19,12 +19,15 @@ import javax.swing.JTextField;
 
 import Database.DBConnect;
 import Products.Product;
+import Statistics.Statistics;
+
 import java.awt.SystemColor;
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class ViewStatistics {
+	JTextArea output_textArea = new JTextArea();
 
 	private JFrame frame;
 	/**
@@ -34,7 +37,12 @@ public class ViewStatistics {
 		initialize();
 		frame.setVisible(true);
 	}
-
+	
+	public void appendOutput(ArrayList<String> Output, int size){
+		for(int i=0; i<size; i++)
+			output_textArea.append(Output.get(i));
+	}
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -59,7 +67,6 @@ public class ViewStatistics {
 		frame.getContentPane().add(Store_textField);
 		Store_textField.setColumns(10);
 		
-		JTextArea output_textArea = new JTextArea();
 		output_textArea.setFont(new Font("Monospaced", Font.PLAIN, 18));
 		output_textArea.setBounds(96, 172, 675, 235);
 		output_textArea.append("Product " +"	      "+" No. of users who bought this product \n");
@@ -70,23 +77,8 @@ public class ViewStatistics {
 	JButton btnNewButton = new JButton("View");
 	btnNewButton.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
-			try {
-				Connection connection;
-			    Statement stmt = null;
-			    ResultSet resultset = null;
-	       		connection = DBConnect.DBConnect();
-	       		stmt = connection.createStatement();
-	            resultset = stmt.executeQuery("select ProductName, InitialQuantity, Quantity from Product where StoreID = '"+Integer.parseInt(Store_textField.getText())+"' ");
-	            while(resultset.next()) {
-					if (resultset.getInt(2) - resultset.getInt(3) != resultset.getInt(2))
-						output_textArea.append(resultset.getString(1) +"			"+Integer.toString(resultset.getInt(2)-resultset.getInt(3))+"\n");
-					else 
-						output_textArea.append(resultset.getString(1) +"			"+"Sold out \n");
-	            }
-	            
-			} catch (SQLException e) {
-				e.printStackTrace();
-		   }
+			new Statistics().viewStat(Integer.parseInt(Store_textField.getText()));
+			
 		}
 	});
 	btnNewButton.setBackground(Color.LIGHT_GRAY);
