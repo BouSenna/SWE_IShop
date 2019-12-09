@@ -47,7 +47,7 @@ public class CustomerHomepageForm {
 		ViewProducts_button.setBackground(Color.LIGHT_GRAY);
 		ViewProducts_button.setBounds(320, 159, 237, 39);
 		frame.getContentPane().add(ViewProducts_button);
-	
+		
 	}
 
 }

@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
 import Database.DBConnect;
+import Users.Customer;
 import net.proteanit.sql.DbUtils;
 import java.sql.Statement;
 
@@ -103,46 +104,13 @@ public class ViewProducts {
 		JButton btnBuy = new JButton("Buy");
 		btnBuy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Connection connection = DBConnect.DBConnect();
-		        try {
-		        	
-		        	products.setCellSelectionEnabled(true);
-		    	    ListSelectionModel cellSelectionModel = products.getSelectionModel();
-		    	    cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		    	    int row = products.getSelectedRow();
-		    	    int column = 0;
-		    	    String myID = products.getModel().getValueAt(row, column).toString();	
-		    	    ArrayList<Integer> balance = new ArrayList<Integer>();
-					Statement stmt = connection.createStatement();
-					ResultSet resultset_customer = stmt.executeQuery("Select AccountBalance from Customer where CreditCardInfo ='"+CCInfo_textField.getText()+"'");
-					
-					while(resultset_customer.next()){
-						   balance.add(resultset_customer.getInt(1));
-					}
-					
-					ResultSet resultset = stmt.executeQuery("Select Quantity, ProductPrice from Product where ProductID ='"+myID+"'");
-					while(resultset.next()) {
-						if (resultset.getInt(1) < Integer.parseInt(Quantity_textField.getText())) {
-							JOptionPane.showMessageDialog(null, "There aren't enough quantity.");
-						}
-						else if (resultset.getInt(2) > balance.get(0)) {
-							JOptionPane.showMessageDialog(null, "You don't have enough money to buy this product.");
-						}
-						else {
-							JOptionPane.showMessageDialog(null, "Your order has been placed successfully.");
-							try {
-								stmt = connection.createStatement();
-								stmt.executeUpdate("update Product set Quantity='"+(resultset.getInt(1) -Integer.parseInt(Quantity_textField.getText()))+"' where ProductID='"+myID+"'");
-								
-							} catch (SQLException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						}
-		            }		        
-		        } catch (SQLException e1) {
-					e1.printStackTrace();
-				}
+				products.setCellSelectionEnabled(true);
+	    	    ListSelectionModel cellSelectionModel = products.getSelectionModel();
+	    	    cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	    	    int row = products.getSelectedRow();
+	    	    int column = 0;
+	    	    String myID = products.getModel().getValueAt(row, column).toString();	
+		        new Customer().buyProduct(CCInfo_textField.getText(), myID, Integer.parseInt(Quantity_textField.getText()));
 			}
 		});
 		btnBuy.setForeground(Color.BLACK);
