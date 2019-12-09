@@ -19,6 +19,10 @@ import javax.swing.JTextField;
 
 import Database.DBConnect;
 import Products.Product;
+import java.awt.SystemColor;
+import javax.swing.SwingConstants;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ViewStatistics {
 
