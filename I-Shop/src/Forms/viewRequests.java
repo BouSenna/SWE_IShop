@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 
 import Database.DBConnect;
+import Users.Admin;
 import net.proteanit.sql.DbUtils;
 
 import javax.swing.JScrollPane;
@@ -85,21 +86,11 @@ public class viewRequests {
 	    Store.addKeyListener(new KeyAdapter() {
 	        public void keyPressed(KeyEvent e) {
 	            if (e.getKeyCode() == KeyEvent.VK_ENTER){
-			    	  Connection connection = DBConnect.DBConnect();
 			    	  int row = Store.getSelectedRow();
 			    	  int col = Store.getSelectedColumn();
 			    	  String newValue = Store.getValueAt(row, col).toString();
-			    	  String myID = Store.getValueAt(row, 0).toString();	    	  
-			    	  Statement stmt;
-					try {
-						stmt = connection.createStatement();
-						stmt.executeUpdate("update Store set Approval='"+newValue+"' where StoreID='"+myID+"'");
-						
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				
+			    	  String myID = Store.getValueAt(row, 0).toString();
+			    	  new Admin().confirmStoreAddition(newValue, myID);
 	             }
 	        }
 	        });
