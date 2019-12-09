@@ -133,25 +133,10 @@ public class addProductForm {
 		JButton btnNewButton = new JButton("Add");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					ArrayList <Integer> arr = new ArrayList<Integer>();
-					resultset = null;
-		        	connection = DBConnect.DBConnect();
-		        	stmt = connection.createStatement();
-	        		resultset = stmt.executeQuery("select BrandID from Brand where BrandName ='"+BrandcomboBox.getSelectedItem().toString()+"'");
-		            while (resultset.next())
-		            	arr.add(resultset.getInt(1));
-	            	resultset = stmt.executeQuery("select ItemID from ItemSpecs where ItemName ='"+ItemcomboBox.getSelectedItem().toString()+"'");
-		            while (resultset.next())
-		            	arr.add(resultset.getInt(1));
-					
-		            Product p = new Product();
-					p.addProduct(Name_textField.getText(), Integer.parseInt(Price_textField.getText()), 
-							Integer.parseInt(Store_textField.getText()), arr.get(0), arr.get(1), Integer.parseInt(Quantity_textField.getText()));
-				} catch (SQLException e) {
-					e.printStackTrace();
-		    	}
-				
+					Product newProduct = new Product();
+					newProduct.addProduct(Name_textField.getText(), Integer.parseInt(Price_textField.getText()), 
+							Integer.parseInt(Store_textField.getText()), BrandcomboBox.getSelectedItem().toString(), 
+							ItemcomboBox.getSelectedItem().toString(),  Integer.parseInt(Quantity_textField.getText()));				
 			}
 		});
 	
