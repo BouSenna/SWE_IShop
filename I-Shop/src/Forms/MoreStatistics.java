@@ -114,6 +114,7 @@ public class MoreStatistics {
 					String selectedOp = oprationcomboBox.getSelectedItem().toString();
 					String selected = comboBox.getSelectedItem().toString();
 					stmt1 = connection.createStatement();
+					// Consider using command design pattern (THIS IS JUST A SUGGESTION :D)
 					if(selectedOp.equals("Best seller")) {
 						query = "select " +selected+"name, (initialquantity-quantity) as RemainingQuantity from product inner join brand on product.brandid = brand.brandid  order by RemainingQuantity asc";
 					
