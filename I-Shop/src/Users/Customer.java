@@ -114,8 +114,14 @@ public class Customer extends User implements CustomerInterface {
 		try {
 			ArrayList<Integer> balance = new ArrayList<Integer>();
 			Statement stmt = connection.createStatement();
+			// TODO: This query should be done in a separate class
+			// Example:
+			// Customer = getCustomer(CCInfo);
+			// in getCustomer function, you implement this function
+			// getCustomer should be in a model class (something like CustomerModel)
 			ResultSet resultset_customer = stmt
 					.executeQuery("Select AccountBalance from Customer where CreditCardInfo ='" + CCInfo + "'");
+			
 			while (resultset_customer.next()) {
 				balance.add(resultset_customer.getInt(1));
 			}
