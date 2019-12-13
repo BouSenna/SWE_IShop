@@ -35,4 +35,19 @@ public class CustomerModel {
 		}
 		return balance;
 	}
+
+	/// Method update the account balance of a customer in the database.
+	public void updateBalance(String CCInfo, int Balance) {
+		/// Establishing a connection with the database.
+		Connection connection = DBConnect.DBConnect();
+		try {
+			/// Updating the account balance of a customer -with the given credit card info-
+			/// with the new balance.
+			Statement stmt = connection.createStatement();
+			stmt.executeUpdate(
+					"update Customer set AccountBalance='" + Balance + "' where CreditCardInfo ='" + CCInfo + "'");
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+	}
 }
