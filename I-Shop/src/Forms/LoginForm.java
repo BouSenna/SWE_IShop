@@ -85,6 +85,7 @@ public class LoginForm {
                 		new DisplayMessages().displayMessage("Login successfully, welcome to I-Shop");
                         frame.setVisible(false);
                         StoreOwnerHomepageForm collaboratorNewForm = new StoreOwnerHomepageForm();
+                        break;
                 	case -1: 
                 		new DisplayMessages().displayMessage("Incorrect email or password");
                        break;
