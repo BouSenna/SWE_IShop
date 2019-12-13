@@ -13,7 +13,7 @@ public class ProductModel {
 	Connection connection = null;
 	Statement stmt = null;
 	ResultSet resultset = null;
-	
+
 	public ProductModel() {
 	}
 
@@ -57,29 +57,30 @@ public class ProductModel {
 		return price;
 	}
 
-	/// Method update the quantity of a product in the database.
+	/// Method that updates the quantity of a product in the database.
 	public void updateQuantity(String myID, int Quantity) {
 		/// Establishing a connection with the database.
 		connection = DBConnect.DBConnect();
 		try {
-			/// Updating the quantity of the product -with the given product ID- 
+			/// Updating the quantity of the product -with the given product ID-
 			/// with the new quantity.
 			Statement stmt = connection.createStatement();
-			stmt.executeUpdate("update Product set Quantity='" + Quantity+ "' where ProductID='" + myID + "'");
+			stmt.executeUpdate("update Product set Quantity='" + Quantity + "' where ProductID='" + myID + "'");
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
 	}
-	
-	public void addNewProduct(int Brand, int mItem, int Store, 
-			int Price, String Name, int InitialQuantity, int CurrentQuantity) {
+
+	/// Method that adds new products to the database.
+	public void addNewProduct(int Brand, int mItem, int Store, int Price, String Name, int InitialQuantity,
+			int CurrentQuantity) {
 		try {
 			connection = DBConnect.DBConnect();
 			stmt = connection.createStatement();
 			stmt.execute(
 					"insert into product(ProductName, ProductPrice, StoreID, BrandID, ItemID, InitialQuantity, Quantity) values"
-							+ " ('" + Name + "','" + Price + "', '" + Store + "', '" + Brand + "', '" + mItem
-							+ "', '" + InitialQuantity + "', '" + CurrentQuantity + "')");
+							+ " ('" + Name + "','" + Price + "', '" + Store + "', '" + Brand + "', '" + mItem + "', '"
+							+ InitialQuantity + "', '" + CurrentQuantity + "')");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
