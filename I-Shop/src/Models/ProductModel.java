@@ -53,4 +53,17 @@ public class ProductModel {
 		return price;
 	}
 
+	/// Method update the quantity of a product in the database.
+	public void updateQuantity(String myID, int Quantity) {
+		/// Establishing a connection with the database.
+		Connection connection = DBConnect.DBConnect();
+		try {
+			/// Updating the quantity of the product -with the given product ID- 
+			/// with the new quantity.
+			Statement stmt = connection.createStatement();
+			stmt.executeUpdate("update Product set Quantity='" + Quantity+ "' where ProductID='" + myID + "'");
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+	}
 }
