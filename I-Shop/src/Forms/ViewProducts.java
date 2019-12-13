@@ -26,6 +26,7 @@ import Database.DBConnect;
 import Users.Customer;
 import net.proteanit.sql.DbUtils;
 import java.sql.Statement;
+import Controllers.CustomerController;;
 
 
 public class ViewProducts {
@@ -110,7 +111,7 @@ public class ViewProducts {
 	    	    int row = products.getSelectedRow();
 	    	    int column = 0;
 	    	    String myID = products.getModel().getValueAt(row, column).toString();	
-		        new Customer().buyProduct(CCInfo_textField.getText(), myID, Integer.parseInt(Quantity_textField.getText()));
+		        new CustomerController().buyProduct(CCInfo_textField.getText(), myID, Integer.parseInt(Quantity_textField.getText()));
 			}
 		});
 		btnBuy.setForeground(Color.BLACK);
