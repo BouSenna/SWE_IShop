@@ -74,6 +74,20 @@ public class StoreOwnerHomepageForm {
 		viewStat_button.setBackground(Color.LIGHT_GRAY);
 		viewStat_button.setBounds(313, 261, 237, 39);
 		frame.getContentPane().add(viewStat_button);
+		
+		JButton btnAddCollaborator = new JButton("Add collaborator");
+		btnAddCollaborator.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.setVisible(false);
+				AddCollaborator newCollab = new AddCollaborator();
+				
+			}
+			
+		});
+		btnAddCollaborator.setForeground(Color.BLACK);
+		btnAddCollaborator.setFont(new Font("Corbel", Font.PLAIN, 23));
+		btnAddCollaborator.setBackground(Color.LIGHT_GRAY);
+		btnAddCollaborator.setBounds(313, 315, 237, 39);
+		frame.getContentPane().add(btnAddCollaborator);
 	}
-
 }
