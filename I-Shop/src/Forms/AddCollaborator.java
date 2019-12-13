@@ -4,10 +4,6 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import Database.DBConnect;
+import Models.CollaboratorModel;
 
 public class AddCollaborator {
 
@@ -27,7 +23,6 @@ public class AddCollaborator {
 	private JTextField nameTxtField;
 	private JTextField storeidTxtField;
 	private JTextField licenseTxtField;
-	private JTextField idTxtField;
 	private JLabel lblNewLabel;
 	private JLabel lblName;
 	private JLabel lblEmail;
@@ -114,29 +109,10 @@ public class AddCollaborator {
 		licenseTxtField.setBounds(453, 186, 235, 20);
 		contentPane.add(licenseTxtField);
 		
-		JLabel lblYourId = new JLabel("Your ID:");
-		lblYourId.setFont(new Font("Corbel", Font.PLAIN, 23));
-		lblYourId.setBounds(453, 217, 208, 23);
-		contentPane.add(lblYourId);
-		
-		idTxtField = new JTextField();
-		idTxtField.setColumns(10);
-		idTxtField.setBounds(453, 244, 235, 20);
-		contentPane.add(idTxtField);
-		
 		JButton btnAddCollab = new JButton("Add collaborator");
 		btnAddCollab.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Connection connection = DBConnect.DBConnect();
-				try {
-					Statement stmt = connection.createStatement();
-					stmt.executeUpdate("insert into Collaborators values ('"+Integer.parseInt(licenseTxtField.getText())+"' , '"+Integer.parseInt(idTxtField.getText())+"','"+emailTxtField.getText()+"','"+passwordTxtField.getText()+"','"+nameTxtField.getText()+"')");
-					JOptionPane.showMessageDialog(null, "Collaborator added successfully.");
-				}
-				catch (SQLException e1){
-					e1.printStackTrace();
-				}
-				
+				new CollaboratorModel().AddCollaborator(Integer.parseInt(licenseTxtField.getText()), Integer.parseInt(storeidTxtField.getText()), emailTxtField.getText(), passwordTxtField.getText(), nameTxtField.getText());				
 			}
 		});
 		btnAddCollab.setBounds(550, 303, 134, 23);
