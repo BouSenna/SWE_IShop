@@ -32,4 +32,25 @@ public class ProductModel {
 		}
 		return quantity;
 	}
+
+	/// Method to return the price of a product from the database.
+	public int getProductPrice(String myID) {
+		/// Establishing a connection with the database.
+		Connection connection = DBConnect.DBConnect();
+		int price = -1;
+		try {
+			Statement stmt = connection.createStatement();
+			/// Getting the price of the product with the given product ID
+			/// and storing it in variable price
+			ResultSet resultset = stmt.executeQuery("Select ProductPrice from Product where ProductID ='" + myID + "'");
+			while (resultset.next()) {
+				price = resultset.getInt(1);
+			}
+
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		return price;
+	}
+
 }
