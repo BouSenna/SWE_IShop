@@ -108,42 +108,5 @@ public class Customer extends User implements CustomerInterface {
 			e.printStackTrace();
 		}
 	}
-
-	public void buyProduct(String CCInfo, String myID, int Quantity) {
-		Connection connection = DBConnect.DBConnect();
-		try {
-			ArrayList<Integer> balance = new ArrayList<Integer>();
-			Statement stmt = connection.createStatement();
-			ResultSet resultset_customer = stmt
-					.executeQuery("Select AccountBalance from Customer where CreditCardInfo ='" + CCInfo + "'");
-			while (resultset_customer.next()) {
-				balance.add(resultset_customer.getInt(1));
-			}
-
-			ResultSet resultset = stmt
-					.executeQuery("Select Quantity, ProductPrice from Product where ProductID ='" + myID + "'");
-			while (resultset.next()) {
-				if (resultset.getInt(1) < Quantity) {
-					JOptionPane.showMessageDialog(null, "There aren't enough quantity.");
-				} else if (resultset.getInt(2) > balance.get(0)) {
-					JOptionPane.showMessageDialog(null, "You don't have enough money to buy this product.");
-				} else {
-					JOptionPane.showMessageDialog(null, "Your order has been placed successfully.");
-					try {
-						stmt = connection.createStatement();
-						stmt.executeUpdate("update Product set Quantity='" + (resultset.getInt(1) - Quantity)
-								+ "' where ProductID='" + myID + "'");
-						stmt.executeUpdate("update Customer set AccountBalance='"
-								+ (balance.get(0) - resultset.getInt(2)) + "' where CreditCardInfo ='" + CCInfo + "'");
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-			}
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-
-	}
 }
+
