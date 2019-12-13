@@ -1,14 +1,9 @@
 package Products;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-
-import Brands.Brand;
-import Database.DBConnect;
-import Item.Item;
+import Forms.DisplayMessages;
+import Models.BrandModel;
+import Models.ItemModel;
+import Models.ProductModel;
 
 public class Product implements ProductHandler {
 	private String mName;
@@ -19,10 +14,7 @@ public class Product implements ProductHandler {
 	private int mInitialQuantity;
 	private int mCurrentQuantity;
 
-	Connection connection = null;
-	Statement stmt = null;
-	ResultSet resultset = null;
-
+	/// Constructor
 	public Product() {
 	}
 
@@ -34,6 +26,7 @@ public class Product implements ProductHandler {
 		this.mName = name;
 	}
 
+	/// Mutators and accessors.
 	public String getmName() {
 		return mName;
 	}
@@ -74,44 +67,31 @@ public class Product implements ProductHandler {
 		this.mItem = mItem;
 	}
 
+	/// Adding new product to the database given the brand and item name.
 	public void addProduct(String name, int price, int store, String brandName, String itemName, int quantity) {
-		try {
-			ArrayList<Integer> arr = new ArrayList<Integer>();
-			resultset = null;
-			connection = DBConnect.DBConnect();
-			stmt = connection.createStatement();
-			resultset = stmt.executeQuery("select BrandID from Brand where BrandName ='" + brandName + "'");
-			while (resultset.next())
-				arr.add(resultset.getInt(1));
-			resultset = stmt.executeQuery("select ItemID from ItemSpecs where ItemName ='" + itemName + "'");
-			while (resultset.next())
-				arr.add(resultset.getInt(1));
+		/// Getting the ID if both the brand and the item.
+		int BrandID = new BrandModel().getBrandID(brandName);
+		int ItemID = new ItemModel().getItemID(itemName);
 
-			Product p = new Product();
-			p.addProduct(name, price, store, arr.get(0), arr.get(1), quantity);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		/// Adding the new product to the DB.
+		new Product().addProduct(name, price, store, BrandID, ItemID, quantity);
 	}
 
+	/// Adding new product to the database
 	public void addProduct(String name, int price, int store, int brand, int item, int quantity) {
-		try {
-			this.mBrand = brand;
-			this.mItem = item;
-			this.mStore = store;
-			this.mPrice = price;
-			this.mName = name;
-			this.mInitialQuantity = quantity;
-			this.mCurrentQuantity = quantity;
-			connection = DBConnect.DBConnect();
-			stmt = connection.createStatement();
-			stmt.execute(
-					"insert into product(ProductName, ProductPrice, StoreID, BrandID, ItemID, InitialQuantity, Quantity) values"
-							+ " ('" + mName + "','" + mPrice + "', '" + mStore + "', '" + mBrand + "', '" + mItem
-							+ "', '" + mInitialQuantity + "', '" + mCurrentQuantity + "')");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		this.mBrand = brand;
+		this.mItem = item;
+		this.mStore = store;
+		this.mPrice = price;
+		this.mName = name;
+		this.mInitialQuantity = quantity;
+		this.mCurrentQuantity = quantity;
 
+		/// Adding the new product to the DB.
+		new ProductModel().addNewProduct(this.mBrand, this.mItem, this.mStore, this.mPrice, this.mName,
+				this.mInitialQuantity, this.mCurrentQuantity);
+		
+		/// Sending verification message.
+		new DisplayMessages().displayMessage("Product added successfully to your store.");
 	}
 }
