@@ -8,6 +8,4 @@ public interface StoreOwnerInterface {
 	 public int getnumOfStores();
 	 
 	 public void register(String email, String password, String name);
-	 public void addAccount();
-
 }
