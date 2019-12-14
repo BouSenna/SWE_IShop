@@ -1,5 +1,6 @@
 package Controllers;
 
+import Brands.Brand;
 import Models.BrandModel;
 
 ///This class handles requests from users, it is responsible for rendering a response
@@ -13,4 +14,8 @@ public class BrandController {
 		new BrandModel().addBrand(Name, Category);;
 	}
 
+	///Method that checks whether the brand exists in the system.
+	public boolean search(Brand brand) {
+		return new BrandModel().matches(brand);
+	}
 }
