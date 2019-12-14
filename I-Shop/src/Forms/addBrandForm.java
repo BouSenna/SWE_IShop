@@ -1,18 +1,13 @@
 package Forms;
 
-import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import Brands.Brand;
+import Controllers.BrandController;
 import Enums.Category;
-import Enums.UserTypes;
 
 import javax.swing.JButton;
 import java.awt.Color;
@@ -71,8 +66,7 @@ public class addBrandForm {
 		JButton btnNewButton = new JButton("Add");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Brand newBrand = new Brand();
-				newBrand.addBrand(Name_textField.getText(), comboBox.getSelectedItem().toString());
+				new BrandController().addBrand(Name_textField.getText(), comboBox.getSelectedItem().toString());
 			}
 		});
 		btnNewButton.setBackground(Color.LIGHT_GRAY);
