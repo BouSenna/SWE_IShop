@@ -1,23 +1,7 @@
 package Users;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.io.File;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+import Models.CustomerModel;
 
-import javax.swing.JOptionPane;
-
-import Database.DBConnect;
 
 public class Customer extends User implements CustomerInterface {
 	private String mName;
@@ -25,8 +9,6 @@ public class Customer extends User implements CustomerInterface {
 	private String mCreditCardInfo;
 	private int mMobileNumber;
 	private float mAccountBalance;
-	Connection connection = null;
-	Statement stmt = null;
 
 	public Customer() {
 		mName = "";
@@ -87,26 +69,9 @@ public class Customer extends User implements CustomerInterface {
 		mMobileNumber = mobNum;
 		mAccountBalance = accountBalance;
 		incID();
-		connection = DBConnect.DBConnect();
-
-		addAccount();
-	}
-
-	public void addAccount() {
-		try {
-
-			stmt = connection.createStatement();
-			stmt.execute("insert into [User] (UserID,Email,Password) values ('" + mUserID + "','" + mUserEmail + "','"
-					+ mUserPassword + "')");
-			stmt.execute(
-					"insert into customer  (UserID,CustomerName, Address,MobileNumber,AccountBalance,CreditCardinfo) values ('"
-							+ mUserID + "','" + mName + "','" + mAddress + "','" + mMobileNumber + "','"
-							+ mAccountBalance + "','" + mCreditCardInfo + "')");
-			stmt.close();
-		} catch (SQLException e) {
-			System.out.println("Error executing query");
-			e.printStackTrace();
-		}
+		
+		new CustomerModel().addNewCustomer(mUserEmail, mUserPassword, mName,
+				mAddress, mCreditCardInfo, mMobileNumber, mAccountBalance);
 	}
 }
 
