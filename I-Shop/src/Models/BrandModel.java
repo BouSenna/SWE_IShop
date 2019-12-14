@@ -50,4 +50,23 @@ public class BrandModel {
 			e.printStackTrace();
 		}
 	}
+
+	/// Method that searches whether the brand is in the system or not.
+	public boolean matches(Brand brand) {
+		try {
+			ResultSet resultset = null;
+			connection = DBConnect.DBConnect();
+			stmt = connection.createStatement();
+			resultset = stmt.executeQuery("select BrandName, Category from Brand");
+			while (resultset.next()) {
+				if ((resultset.getString(1).toUpperCase()).equals(brand.getName().toUpperCase())
+						&& (resultset.getString(2).toUpperCase()).equals(brand.getCategory().toUpperCase()))
+					return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 }
