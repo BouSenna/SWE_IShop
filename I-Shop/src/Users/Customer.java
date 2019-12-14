@@ -27,6 +27,7 @@ public class Customer extends User implements CustomerInterface {
 	private float mAccountBalance;
 	Connection connection = null;
 	Statement stmt = null;
+	ResultSet resultset = null;
 
 	public Customer() {
 		mName = "";
@@ -94,13 +95,18 @@ public class Customer extends User implements CustomerInterface {
 
 	public void addAccount() {
 		try {
-
+			int temp = 0 ;
 			stmt = connection.createStatement();
-			stmt.execute("insert into [User] (UserID,Email,Password) values ('" + mUserID + "','" + mUserEmail + "','"
+			stmt.execute("insert into [User] (Email,Password) values ('" + mUserEmail + "','"
 					+ mUserPassword + "')");
+			resultset = stmt.executeQuery(
+					"select userid from [user] where email = '" + mUserEmail + "' AND password = '" + mUserPassword + "' ");
+			while (resultset.next())
+				temp = resultset.getInt(1);
+
 			stmt.execute(
 					"insert into customer  (UserID,CustomerName, Address,MobileNumber,AccountBalance,CreditCardinfo) values ('"
-							+ mUserID + "','" + mName + "','" + mAddress + "','" + mMobileNumber + "','"
+							+ temp + "','" + mName + "','" + mAddress + "','" + mMobileNumber + "','"
 							+ mAccountBalance + "','" + mCreditCardInfo + "')");
 			stmt.close();
 		} catch (SQLException e) {

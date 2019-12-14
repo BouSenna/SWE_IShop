@@ -23,11 +23,17 @@ public class StoreOwnerModel {
 		/// Establishing a connection with the database.
 		connection = DBConnect.DBConnect();
 		try {
+			int temp = 0;
 			stmt = connection.createStatement();
-			stmt.execute("insert into [User] (UserID, Email, Password) values " + "('" + UserID + "','" + UserEmail
+			stmt.execute("insert into [User] ( Email, Password) values " + "('" + UserEmail
 					+ "','" + UserPassword + "')");
+			resultset = stmt.executeQuery(
+					"select userid from [user] where email = '" + UserEmail + "' AND password = '" + UserPassword + "' ");
+			while (resultset.next())
+				temp = resultset.getInt(1);
+			stmt.execute("SET IDENTITY_INSERT storeowner ON");
 			stmt.execute("insert into StoreOwner  (OwnerName, NumberOfStores, License,  UserID ) values" + " ('" + Name
-					+ "','" + NumOfStores + "','" + License + "','" + UserID + "')");
+					+ "','" + NumOfStores + "','" + License + "','" + temp + "')");
 			stmt.close();
 		} catch (SQLException e) {
 			System.out.println("Error executing query");
