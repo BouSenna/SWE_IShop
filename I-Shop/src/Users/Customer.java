@@ -2,7 +2,6 @@ package Users;
 
 import Models.CustomerModel;
 
-
 public class Customer extends User implements CustomerInterface {
 	private String mName;
 	private String mAddress;
@@ -10,6 +9,7 @@ public class Customer extends User implements CustomerInterface {
 	private int mMobileNumber;
 	private float mAccountBalance;
 
+	/// Constructor
 	public Customer() {
 		mName = "";
 		mAddress = "";
@@ -19,6 +19,7 @@ public class Customer extends User implements CustomerInterface {
 
 	}
 
+	/// Accessors and Mutators
 	public void setName(String name) {
 		this.mName = name;
 	}
@@ -59,6 +60,7 @@ public class Customer extends User implements CustomerInterface {
 		return this.mAccountBalance;
 	}
 
+	/// Registration method
 	public void register(String email, String password, String name, String address, String creditCardInfo, int mobNum,
 			float accountBalance) {
 		mUserEmail = email;
@@ -69,9 +71,8 @@ public class Customer extends User implements CustomerInterface {
 		mMobileNumber = mobNum;
 		mAccountBalance = accountBalance;
 		incID();
-		
-		new CustomerModel().addNewCustomer(mUserEmail, mUserPassword, mName,
-				mAddress, mCreditCardInfo, mMobileNumber, mAccountBalance);
+
+		new CustomerModel().addNewCustomer(mUserEmail, mUserPassword, mName, mAddress, mCreditCardInfo, mMobileNumber,
+				mAccountBalance);
 	}
 }
-
