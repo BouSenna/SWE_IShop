@@ -11,10 +11,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-
+import Controllers.StoreController;
 import Enums.Category;
 import Enums.Type;
-import Models.StoreModel;
 
 public class addStoreForm {
 
@@ -102,7 +101,7 @@ public class addStoreForm {
 		JButton btnNewButton = new JButton("Add");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new StoreModel().addStore(Name_textField.getText(), categorycomboBox.getSelectedItem().toString(), typecomboBox.getSelectedItem().toString(), Address_textField.getText(), Integer.parseInt(License_textField.getText()));
+				new StoreController().addStore(Name_textField.getText(), categorycomboBox.getSelectedItem().toString(), typecomboBox.getSelectedItem().toString(), Address_textField.getText(), Integer.parseInt(License_textField.getText()));
 				
 			}
 		});
