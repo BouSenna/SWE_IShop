@@ -1,25 +1,20 @@
 package Forms;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 
-import Brands.Brand;
 import Enums.Category;
 import Enums.Type;
-import Stores.Store;
+import Models.StoreModel;
 
 public class addStoreForm {
 
@@ -107,8 +102,7 @@ public class addStoreForm {
 		JButton btnNewButton = new JButton("Add");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Store newStore = new Store();
-				newStore.addStore(Name_textField.getText(), categorycomboBox.getSelectedItem().toString(), typecomboBox.getSelectedItem().toString(), Address_textField.getText(), Integer.parseInt(License_textField.getText()));
+				new StoreModel().addStore(Name_textField.getText(), categorycomboBox.getSelectedItem().toString(), typecomboBox.getSelectedItem().toString(), Address_textField.getText(), Integer.parseInt(License_textField.getText()));
 				
 			}
 		});
@@ -117,7 +111,6 @@ public class addStoreForm {
 		btnNewButton.setFont(new Font("Corbel", Font.PLAIN, 23));
 		btnNewButton.setBounds(346, 347, 175, 45);
 		frame.getContentPane().add(btnNewButton);
-	
 	}
 
 }
