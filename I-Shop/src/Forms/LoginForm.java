@@ -67,22 +67,27 @@ public class LoginForm {
                 Customer x = new Customer();
                 switch (x.login(Usename_textField.getText(), Password_textField.getText())) {
                 	case 0: 
-                		JOptionPane.showMessageDialog(frame, "Login successfully, welcome to I-Shop");
+                		new DisplayMessages().displayMessage("Login successfully, welcome to I-Shop");
                         frame.setVisible(false);
                         CustomerHomepageForm customerNewForm = new CustomerHomepageForm();
                         break;
                 	case 1:
-                		JOptionPane.showMessageDialog(frame, "Login successfully, welcome to I-Shop");
+                		new DisplayMessages().displayMessage("Login successfully, welcome to I-Shop");
                         frame.setVisible(false);
                         AdminHomepageForm adminNewForm = new AdminHomepageForm();
                         break;
                 	case 2:
-                		JOptionPane.showMessageDialog(frame, "Login successfully, welcome to I-Shop");
+                		new DisplayMessages().displayMessage("Login successfully, welcome to I-Shop");
                         frame.setVisible(false);
                         StoreOwnerHomepageForm ownerNewForm = new StoreOwnerHomepageForm();
                         break;
+                	case 3:
+                		new DisplayMessages().displayMessage("Login successfully, welcome to I-Shop");
+                        frame.setVisible(false);
+                        StoreOwnerHomepageForm collaboratorNewForm = new StoreOwnerHomepageForm();
+                        break;
                 	case -1: 
-                       JOptionPane.showMessageDialog(frame, "Incorrect email or password");
+                		new DisplayMessages().displayMessage("Incorrect email or password");
                        break;
                 }
 			}
