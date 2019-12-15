@@ -8,10 +8,13 @@ import java.util.ArrayList;
 
 import Database.DBConnect;
 import Forms.ViewStatistics;
+import Models.ProductModel;
 
-public class Statistics implements StatisticsInterface {
+
+public class Statistics implements StatisticsInterface, Observer {
 	public Statistics(){}
 	public void viewStat(int storeID) {
+		
 		try {
 			Connection connection;
 		    Statement stmt = null;
@@ -36,4 +39,18 @@ public class Statistics implements StatisticsInterface {
 	   }
 		
 	}
+	
+	public void update(String ID, int quantity) { 
+		Connection connection = DBConnect.DBConnect();
+		try {
+			Statement stmt = connection.createStatement();
+			stmt.executeUpdate("update Product set Quantity='" + quantity + "' where ProductID='" + ID + "'");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	
 }

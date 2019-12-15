@@ -4,15 +4,23 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import Database.DBConnect;
+import Statistics.Statistics;
+import Statistics.Subject;
 
 ///This class is responsible for retrieving the data from the product table in the database and converting
 ///it to a meaningful concept for our software.
-public class ProductModel {
+public class ProductModel  implements Subject {
 	Connection connection = null;
 	Statement stmt = null;
 	ResultSet resultset = null;
+	Statistics stat = new Statistics();
+
+	private ArrayList<Statistics> observers = new ArrayList<Statistics>();
 
 	public ProductModel() {
 	}
@@ -69,6 +77,9 @@ public class ProductModel {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
+	
+		registerObserver(stat);
+		setChanged(myID, Quantity);
 	}
 
 	/// Method that adds new products to the database.
@@ -85,4 +96,33 @@ public class ProductModel {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public void setChanged(String ID, int quantity) {
+		notifyObserver(ID , quantity);
+	}
+	
+	@Override
+	public void registerObserver(Statistics stat) {
+		observers.add(stat);
+
+	}
+
+	@Override
+	public void removeObserver(Statistics stat) {
+		int i = observers.indexOf(stat);
+		if (i >= 0)
+			observers.remove(i);
+
+	}
+
+	@Override
+	public void notifyObserver(String ID, int quantity) {
+		for (int i = 0; i < observers.size(); i++) {
+			Statistics obs = observers.get(i);
+			obs.update(ID, quantity);
+		}
+
+	}
+	
 }
