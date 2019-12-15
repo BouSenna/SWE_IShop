@@ -13,7 +13,7 @@ public class ItemController {
 	}
 	
 	///Method to check whether the price is valid or not.
-	public boolean checkPrice(int price) {
-		return new ItemModel().inRange(price);
+	public boolean checkPrice(int price, int ID) {
+		return new ItemModel().inRange(price, ID);
 	}
 }
