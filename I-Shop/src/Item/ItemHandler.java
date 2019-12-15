@@ -6,7 +6,4 @@ public interface ItemHandler {
 
 	public int getmMaxPrice();
 	public void setmMaxPrice(int mMaxPrice);
-	
-    public void addItem(int minPrice, int maxPrice);
-    public boolean inRange(int num);
 }
