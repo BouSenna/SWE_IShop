@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import Controllers.ItemController;
+import Controllers.ItemSpecsController;
 import Enums.Category;
 import Enums.Type;
 import Item.Item;
@@ -92,8 +93,7 @@ public class addItemForm {
 			public void actionPerformed(ActionEvent arg0) {
 				new ItemController().addItem(Integer.parseInt(MinimumPrice_textField.getText()),
 						Integer.parseInt(MaximumPrice_textField.getText()));
-				Item_Specs newSpec = new Item_Specs();
-				newSpec.addItemSpecs(Name_textField.getText(), categorycomboBox.getSelectedItem().toString());
+				new ItemSpecsController().addItemSpecs(Name_textField.getText(), categorycomboBox.getSelectedItem().toString());
 			}
 		});
 		btnNewButton.setBackground(Color.LIGHT_GRAY);
