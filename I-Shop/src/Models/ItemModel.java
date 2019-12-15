@@ -37,6 +37,26 @@ public class ItemModel {
 		return ID;
 	}
 
+	/// Method that returns the minimum price.
+	public int getMin(int ID) {
+		/// Establishing a connection with the database.
+		connection = DBConnect.DBConnect();
+		int minPrice = -1;
+		try {
+			stmt = connection.createStatement();
+			/// Getting the minimum price of an item with the given item ID
+			/// and storing it in variable minPrice
+			resultset = stmt.executeQuery("select MinPrice from Item where ItemID ='" + ID + "'");
+			while (resultset.next()) {
+				minPrice = resultset.getInt(1);
+			}
+
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		return minPrice;
+	}
+
 	/// Method that adds items in the database.
 	public void addItem(int minPrice, int maxPrice) {
 		connection = DBConnect.DBConnect();
