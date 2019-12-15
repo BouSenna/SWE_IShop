@@ -57,6 +57,26 @@ public class ItemModel {
 		return minPrice;
 	}
 
+	/// Method that returns the maximum price.
+	public int getMax(int ID) {
+		/// Establishing a connection with the database.
+		connection = DBConnect.DBConnect();
+		int maxPrice = -1;
+		try {
+			stmt = connection.createStatement();
+			/// Getting the maximum price of an item with the given item ID
+			/// and storing it in variable maxPrice
+			resultset = stmt.executeQuery("select MaxPrice from Item where ItemID ='" + ID + "'");
+			while (resultset.next()) {
+				maxPrice = resultset.getInt(1);
+			}
+
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		return maxPrice;
+	}
+
 	/// Method that adds items in the database.
 	public void addItem(int minPrice, int maxPrice) {
 		connection = DBConnect.DBConnect();
