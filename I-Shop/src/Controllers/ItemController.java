@@ -7,7 +7,13 @@ import Models.ItemModel;
 public class ItemController {
 	public ItemController() {}
 	
+	///Method to add item.
 	public void addItem(int minPrice, int maxPrice) {
 		new ItemModel().addItem(minPrice, maxPrice);
+	}
+	
+	///Method to check whether the price is valid or not.
+	public boolean checkPrice(int price) {
+		return new ItemModel().inRange(price);
 	}
 }
