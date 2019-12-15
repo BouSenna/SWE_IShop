@@ -87,4 +87,14 @@ public class ItemModel {
 			e.printStackTrace();
 		}
 	}
+
+	/// Method that checks whether the price of a product is valid (in range of the
+	/// item price) or not.
+	public boolean inRange(int num, int ID) {
+		int MinPrice = getMin(ID);
+		int MaxPrice = getMax(ID);
+		if (num >= MinPrice && num <= MaxPrice)
+			return true;
+		return false;
+	}
 }
