@@ -36,4 +36,15 @@ public class ItemModel {
 		}
 		return ID;
 	}
+
+	/// Method that adds items in the database.
+	public void addItem(int minPrice, int maxPrice) {
+		connection = DBConnect.DBConnect();
+		try {
+			stmt = connection.createStatement();
+			stmt.execute("insert into items (MaxPrice, MinPrice) values ('" + maxPrice + "','" + minPrice + "')");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
