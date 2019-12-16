@@ -21,5 +21,4 @@ public interface CustomerInterface {
     
     public void register(String email, String password, String name, String address,
             String creditCardInfo, int mobNum, float accountBalance);
-    public void addAccount();
 }

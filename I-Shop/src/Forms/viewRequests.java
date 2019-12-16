@@ -21,6 +21,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+
+import Controllers.AdminController;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -90,7 +93,7 @@ public class viewRequests {
 			    	  int col = Store.getSelectedColumn();
 			    	  String newValue = Store.getValueAt(row, col).toString();
 			    	  String myID = Store.getValueAt(row, 0).toString();
-			    	  new Admin().confirmStoreAddition(newValue, myID);
+			    	  new AdminController().confirmStoreAddition(newValue, myID);
 	             }
 	        }
 	        });

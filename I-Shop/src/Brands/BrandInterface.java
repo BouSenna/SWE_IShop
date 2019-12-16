@@ -9,5 +9,4 @@ public interface BrandInterface {
     public void setCategory(String cat);
     public String getCategory();
     
-    public void addBrand(String Name, String Category);
 }
