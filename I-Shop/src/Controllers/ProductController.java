@@ -31,7 +31,7 @@ public class ProductController {
 		new DisplayMessages().displayMessage("Product added successfully to your store.");
 	}
 
-	public void removeProduct(String name, int price, int store, int brand, int item, int quantity) {
+	public void removeProduct(int store, String name) {
 		/// Removing product from the DB.
 		new ProductModel().removeProduct(store, name);
 
