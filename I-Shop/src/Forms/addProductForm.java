@@ -18,10 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import Database.DBConnect;
-import Enums.Category;
-import Enums.Type;
-import Products.Product;
-import Stores.Store;
+import StoreOwnerCommands.AddProductCommand;
+import StoreOwnerCommands.UndoHandler;
 
 public class addProductForm {
 
@@ -130,16 +128,16 @@ public class addProductForm {
     	}
 		frame.getContentPane().add(BrandcomboBox);
 		
+		
 		JButton btnNewButton = new JButton("Add");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-					Product newProduct = new Product();
-					newProduct.addProduct(Name_textField.getText(), Integer.parseInt(Price_textField.getText()), 
-							Integer.parseInt(Store_textField.getText()), BrandcomboBox.getSelectedItem().toString(), 
-							ItemcomboBox.getSelectedItem().toString(),  Integer.parseInt(Quantity_textField.getText()));				
+				new UndoHandler().execute(new AddProductCommand(Name_textField.getText(), Integer.parseInt(Price_textField.getText()), 
+						Integer.parseInt(Store_textField.getText()), BrandcomboBox.getSelectedItem().toString(), 
+						ItemcomboBox.getSelectedItem().toString(),  Integer.parseInt(Quantity_textField.getText())));				
 			}
 		});
-	
+		
 		btnNewButton.setBackground(Color.LIGHT_GRAY);
 		btnNewButton.setForeground(Color.BLACK);
 		btnNewButton.setFont(new Font("Corbel", Font.PLAIN, 23));
