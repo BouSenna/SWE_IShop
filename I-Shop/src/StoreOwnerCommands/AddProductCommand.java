@@ -1,11 +1,27 @@
 package StoreOwnerCommands;
 
+import Controllers.ProductController;
+
 public class AddProductCommand implements IStoreOwnerCommand {
+	String mName;
+	int mPrice;
+	int mStoreID;
+	String mBrandName;
+	String mItemName;
+	int mQuantity;
+
+	public AddProductCommand(String Name, int Price, int StoreID, String BrandName, String ItemName, int Quantity) {
+		this.mName = Name;
+		this.mPrice = Price;
+		this.mStoreID = StoreID;
+		this.mBrandName = BrandName;
+		this.mItemName = ItemName;
+		this.mQuantity = Quantity;
+	}
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-
+		new ProductController().addProduct(mName, mPrice, mStoreID, mBrandName, mItemName, mQuantity);
 	}
 
 	@Override
