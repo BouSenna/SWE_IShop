@@ -1,6 +1,4 @@
 package Products;
-import Brands.Brand;
-import Item.Item;
 
 public interface ProductHandler {
 	public String getmName();
@@ -17,7 +15,4 @@ public interface ProductHandler {
 
 	public int getmItem();
 	public void setmItem(int mItem);
-
-	public void addProduct(String name, int price, int store, int brand, int item, int quantity);
-
 }
