@@ -58,6 +58,8 @@ public class CustomerModel {
 	/// Method to add new customer
 	public void addNewCustomer(String UserEmail, String UserPassword, String Name, String Address,
 			String CreditCardInfo, int MobileNumber, float AccountBalance) {
+		/// Establishing a connection with the database.
+				connection = DBConnect.DBConnect();
 		try {
 			int temp = 0;
 			stmt = connection.createStatement();
