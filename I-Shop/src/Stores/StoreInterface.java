@@ -16,5 +16,4 @@ public interface StoreInterface {
     public String getmApproval();
 	public void setmApproval(String mApproval);
     
-    public void addStore(String Name, String Category, String Type, String address, int license);
 }

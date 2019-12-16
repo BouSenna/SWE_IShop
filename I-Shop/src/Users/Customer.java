@@ -1,23 +1,6 @@
 package Users;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.io.File;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JOptionPane;
-
-import Database.DBConnect;
+import Models.CustomerModel;
 
 public class Customer extends User implements CustomerInterface {
 	private String mName;
@@ -25,10 +8,8 @@ public class Customer extends User implements CustomerInterface {
 	private String mCreditCardInfo;
 	private int mMobileNumber;
 	private float mAccountBalance;
-	Connection connection = null;
-	Statement stmt = null;
-	ResultSet resultset = null;
 
+	/// Constructor
 	public Customer() {
 		mName = "";
 		mAddress = "";
@@ -38,6 +19,7 @@ public class Customer extends User implements CustomerInterface {
 
 	}
 
+	/// Accessors and Mutators
 	public void setName(String name) {
 		this.mName = name;
 	}
@@ -78,6 +60,7 @@ public class Customer extends User implements CustomerInterface {
 		return this.mAccountBalance;
 	}
 
+	/// Registration method
 	public void register(String email, String password, String name, String address, String creditCardInfo, int mobNum,
 			float accountBalance) {
 		mUserEmail = email;
@@ -88,31 +71,8 @@ public class Customer extends User implements CustomerInterface {
 		mMobileNumber = mobNum;
 		mAccountBalance = accountBalance;
 		incID();
-		connection = DBConnect.DBConnect();
 
-		addAccount();
-	}
-
-	public void addAccount() {
-		try {
-			int temp = 0 ;
-			stmt = connection.createStatement();
-			stmt.execute("insert into [User] (Email,Password) values ('" + mUserEmail + "','"
-					+ mUserPassword + "')");
-			resultset = stmt.executeQuery(
-					"select userid from [user] where email = '" + mUserEmail + "' AND password = '" + mUserPassword + "' ");
-			while (resultset.next())
-				temp = resultset.getInt(1);
-
-			stmt.execute(
-					"insert into customer  (UserID,CustomerName, Address,MobileNumber,AccountBalance,CreditCardinfo) values ('"
-							+ temp + "','" + mName + "','" + mAddress + "','" + mMobileNumber + "','"
-							+ mAccountBalance + "','" + mCreditCardInfo + "')");
-			stmt.close();
-		} catch (SQLException e) {
-			System.out.println("Error executing query");
-			e.printStackTrace();
-		}
+		new CustomerModel().addNewCustomer(mUserEmail, mUserPassword, mName, mAddress, mCreditCardInfo, mMobileNumber,
+				mAccountBalance);
 	}
 }
-
