@@ -12,9 +12,8 @@ public class StoreOwnerController {
 	}
 
 	/// Add store owner account.
-	public void register(int UserID, String UserEmail, String UserPassword, String Name, int NumOfStores,
-			int License) {
-		new StoreOwnerModel().addStoreOwner(UserID, UserEmail, UserPassword, Name, NumOfStores, License);
+	public void register(String UserEmail, String UserPassword, String Name) {
+		new StoreOwnerModel().addStoreOwner(UserEmail, UserPassword, Name);
 	}
 
 }
