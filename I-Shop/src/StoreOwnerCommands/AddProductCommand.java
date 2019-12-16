@@ -26,8 +26,7 @@ public class AddProductCommand implements IStoreOwnerCommand {
 
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
-
+		new ProductController().removeProduct(mStoreID, mName);
 	}
 
 	@Override
@@ -35,5 +34,4 @@ public class AddProductCommand implements IStoreOwnerCommand {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
