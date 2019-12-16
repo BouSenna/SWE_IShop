@@ -2,6 +2,7 @@ package Forms;
 
 import javax.swing.ListSelectionModel;
 import Database.DBConnect;
+import Models.StatisticsModel;
 import net.proteanit.sql.DbUtils;
 import java.awt.EventQueue;
 
@@ -100,6 +101,8 @@ public class MoreStatistics {
 				if(oprationcomboBox.getSelectedItem().toString().equals("Count")) {
 					comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Product", "Brand" , "Customer" , "Store"}));
 				}
+				else
+					comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Product", "Brand" }));
 			}
 		});
 		oprationcomboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Count", "Best seller", "Lowest seller"}));
@@ -109,34 +112,14 @@ public class MoreStatistics {
 		JButton btnNewButton = new JButton("Show statistics");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				connection = DBConnect.DBConnect(); 
-				try {
-					String selectedOp = oprationcomboBox.getSelectedItem().toString();
-					String selected = comboBox.getSelectedItem().toString();
-					stmt1 = connection.createStatement();
-					if(selectedOp.equals("Best seller")) {
-						query = "select " +selected+"name, (initialquantity-quantity) as RemainingQuantity from product inner join brand on product.brandid = brand.brandid  order by RemainingQuantity asc";
-					
-					}
-					else if(selectedOp.equals("Lowest seller")){
-						query =  "select " +selected+"name, (initialquantity-quantity) as RemainingQuantity from product inner join brand on product.brandid = brand.brandid order by RemainingQuantity desc";
-					}
-					else {
-						query = "select count(*) from " + selected;
-					}
-					stmt = connection.createStatement();
-					stmt.setMaxRows(1);
-					resultset = stmt.executeQuery(query);
-					table.setModel(DbUtils.resultSetToTableModel(resultset));
-					scrollPane.setViewportView(table);
-					table.setCellSelectionEnabled(true);
-				    ListSelectionModel cellSelectionModel = table.getSelectionModel();
-				    cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-					
-				}catch (SQLException e) {
-					
-					e.printStackTrace();
-				}
+				String selectedOp = oprationcomboBox.getSelectedItem().toString();
+				String selected = comboBox.getSelectedItem().toString();
+				StatisticsModel statisticsmodel = new StatisticsModel();
+				table.setModel(DbUtils.resultSetToTableModel(statisticsmodel.showStatistics(selectedOp, selected)));
+				scrollPane.setViewportView(table);
+				table.setCellSelectionEnabled(true);
+			    ListSelectionModel cellSelectionModel = table.getSelectionModel();
+			    cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			}
 		});
 		btnNewButton.setBounds(638, 404, 151, 29);
@@ -146,6 +129,16 @@ public class MoreStatistics {
 		lblChooseAnOperation.setFont(new Font("Corbel", Font.PLAIN, 23));
 		lblChooseAnOperation.setBounds(81, 98, 271, 39);
 		frame.getContentPane().add(lblChooseAnOperation);
+		
+		JButton btnAddStatistics = new JButton("Add statistics");
+		btnAddStatistics.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+			
+		});
+		btnAddStatistics.setBounds(466, 404, 151, 29);
+		frame.getContentPane().add(btnAddStatistics);
 		
 		
 	
