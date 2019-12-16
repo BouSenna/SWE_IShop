@@ -35,7 +35,7 @@ public class StoreOwner extends User implements StoreOwnerInterface {
 		mUserEmail = email;
 		mUserPassword = password;
 		mName = name;
-		new StoreOwnerController().register(mUserID, mUserEmail, mUserPassword, mName, mNumOfStores, mLicense);
+		new StoreOwnerController().register( mUserEmail, mUserPassword, mName);
 		;
 	}
 }

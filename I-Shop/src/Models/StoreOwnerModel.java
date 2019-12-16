@@ -18,8 +18,7 @@ public class StoreOwnerModel {
 	}
 
 	/// Method that adds store owner to its table in the database.
-	public void addStoreOwner(int UserID, String UserEmail, String UserPassword, String Name, int NumOfStores,
-			int License) {
+	public void addStoreOwner(String UserEmail, String UserPassword, String Name) {
 		/// Establishing a connection with the database.
 		connection = DBConnect.DBConnect();
 		try {
@@ -31,9 +30,8 @@ public class StoreOwnerModel {
 					"select userid from [user] where email = '" + UserEmail + "' AND password = '" + UserPassword + "' ");
 			while (resultset.next())
 				temp = resultset.getInt(1);
-			stmt.execute("SET IDENTITY_INSERT storeowner ON");
-			stmt.execute("insert into StoreOwner  (OwnerName, NumberOfStores, License,  UserID ) values" + " ('" + Name
-					+ "','" + NumOfStores + "','" + License + "','" + temp + "')");
+			stmt.execute("insert into StoreOwner  (OwnerName, UserID ) values" + " ('" + Name
+					+ "','" + temp + "')");
 			stmt.close();
 		} catch (SQLException e) {
 			System.out.println("Error executing query");
