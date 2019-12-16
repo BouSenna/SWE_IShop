@@ -72,14 +72,14 @@ public class ProductModel {
 	}
 
 	/// Method that adds new products to the database.
-	public void addNewProduct(int Brand, int mItem, int Store, int Price, String Name, int InitialQuantity,
+	public void addNewProduct(int Brand, int Item, int Store, int Price, String Name, int InitialQuantity,
 			int CurrentQuantity) {
 		try {
 			connection = DBConnect.DBConnect();
 			stmt = connection.createStatement();
 			stmt.execute(
 					"insert into product(ProductName, ProductPrice, StoreID, BrandID, ItemID, InitialQuantity, Quantity) values"
-							+ " ('" + Name + "','" + Price + "', '" + Store + "', '" + Brand + "', '" + mItem + "', '"
+							+ " ('" + Name + "','" + Price + "', '" + Store + "', '" + Brand + "', '" + Item + "', '"
 							+ InitialQuantity + "', '" + CurrentQuantity + "')");
 		} catch (SQLException e) {
 			e.printStackTrace();
