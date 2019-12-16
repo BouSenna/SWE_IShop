@@ -10,4 +10,30 @@ public class UndoHandler {
 	public UndoHandler() {
 		this.undoStack = new Stack<IStoreOwnerCommand>();
 	}
+
+	/// Method to execute and store the command in the stack.
+	public void execute(IStoreOwnerCommand command) {
+		try {
+			/// executing the command
+			command.execute();
+			/// pushing the command in the stack in case we needed later [undo]
+			undoStack.push(command);
+		} catch (IllegalStateException e) {
+		}
+	}
+
+	/// Method to un-execute the last command and poping it from the stack.
+	public void undo() {
+		/// Checking if there isn't any command executed yet.
+		if (!undoStack.isEmpty()) {
+			try {
+				/// Setting the command with the last command executed.
+				IStoreOwnerCommand command = undoStack.pop();
+				/// undoing the command.
+				command.undo();
+			} catch (IllegalStateException e) {
+
+			}
+		}
+	}
 }
