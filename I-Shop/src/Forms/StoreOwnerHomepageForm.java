@@ -1,13 +1,14 @@
 package Forms;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
+import StoreOwnerCommands.UndoHandler;
 
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -17,13 +18,24 @@ import java.awt.event.ActionEvent;
 public class StoreOwnerHomepageForm {
 
 	private JFrame frame;
+	private UndoHandler undoHandler;
 
 	/**
 	 * Create the application.
 	 */
 	public StoreOwnerHomepageForm() {
+		undoHandler = new UndoHandler();
 		initialize();
 		frame.setVisible(true);
+	}
+
+	private boolean checkAuthority() {
+		String input = JOptionPane.showInputDialog("Enter the store password please");
+		if (input.equals("owner123")) {
+			frame.setVisible(false);
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -43,8 +55,11 @@ public class StoreOwnerHomepageForm {
 		JButton addStore_button = new JButton("Add new store");
 		addStore_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.setVisible(false);
-				addStoreForm newForm = new addStoreForm();
+				if (checkAuthority()) {
+					frame.setVisible(false);
+					addStoreForm newForm = new addStoreForm();
+				} else
+					new DisplayMessages().displayMessage("Not supported for this account.");
 			}
 		});
 		addStore_button.setForeground(Color.BLACK);
@@ -56,8 +71,7 @@ public class StoreOwnerHomepageForm {
 		JButton addProduct_button = new JButton("Add new product");
 		addProduct_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frame.setVisible(false);
-				addProductForm newForm = new addProductForm();
+				addProductForm newForm = new addProductForm(undoHandler);
 			}
 		});
 		addProduct_button.setForeground(Color.BLACK);
@@ -69,8 +83,11 @@ public class StoreOwnerHomepageForm {
 		JButton viewStat_button = new JButton("View Statistics");
 		viewStat_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frame.setVisible(false);
-				ViewStatistics newForm = new ViewStatistics();
+				if (checkAuthority()) {
+					frame.setVisible(false);
+					ViewStatistics newForm = new ViewStatistics();
+				} else
+					new DisplayMessages().displayMessage("Not supported for this account.");
 			}
 		});
 		viewStat_button.setForeground(Color.BLACK);
@@ -82,9 +99,11 @@ public class StoreOwnerHomepageForm {
 		JButton btnAddCollaborator = new JButton("Add collaborator");
 		btnAddCollaborator.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frame.setVisible(false);
-				AddCollaborator newCollab = new AddCollaborator();
-
+				if (checkAuthority()) {
+					frame.setVisible(false);
+					AddCollaborator newCollab = new AddCollaborator();
+				} else
+					new DisplayMessages().displayMessage("Not supported for this account.");
 			}
 
 		});
@@ -98,12 +117,10 @@ public class StoreOwnerHomepageForm {
 		lblNewLabel_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				String input = JOptionPane.showInputDialog("Enter the store password please");
-				if (input.equals("owner123")) {
-					frame.setVisible(false);
-					CollabActionsTracker newForm = new CollabActionsTracker();
-				}
-				else new DisplayMessages().displayMessage("Not supported for this account.");
+				if (checkAuthority())
+					undoHandler.tracker.frame.setVisible(true);
+				else
+					new DisplayMessages().displayMessage("Not supported for this account.");
 			}
 		});
 		lblNewLabel_1.setForeground(Color.RED);
