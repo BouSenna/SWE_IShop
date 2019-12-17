@@ -77,7 +77,7 @@ public class ProductModel  implements QuantitySubject {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-	
+
 		registerObserver(stat);
 		setChanged(myID, Quantity);
 	}
@@ -96,12 +96,22 @@ public class ProductModel  implements QuantitySubject {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	public void setChanged(String ID, int quantity) {
-		notifyObserver(ID , quantity);
+
+	/// Method that removes a product from the database.
+	public void removeProduct(int Store, String Name) {
+		try {
+			connection = DBConnect.DBConnect();
+			stmt = connection.createStatement();
+			stmt.execute("delete from product where ProductName ='" + Name + "' AND StoreID ='" + Store + "'");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
-	
+
+	public void setChanged(String ID, int quantity) {
+		notifyObserver(ID, quantity);
+	}
+
 	@Override
 	public void registerObserver(Statistics stat) {
 		observers.add(stat);
@@ -124,5 +134,5 @@ public class ProductModel  implements QuantitySubject {
 		}
 
 	}
-	
+
 }
