@@ -31,7 +31,6 @@ public class AddProductCommand implements IStoreOwnerCommand {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Added " + this.mQuantity + " items of product " + this.mName;
 	}
 }
