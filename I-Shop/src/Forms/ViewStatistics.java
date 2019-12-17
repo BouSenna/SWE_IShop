@@ -18,6 +18,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import Database.DBConnect;
+import Models.StatisticsModel;
 import Products.Product;
 import Statistics.Statistics;
 
@@ -25,6 +26,7 @@ import java.awt.SystemColor;
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.UIManager;
 
 public class ViewStatistics {
 	JTextArea output_textArea = new JTextArea();
@@ -86,5 +88,15 @@ public class ViewStatistics {
 	btnNewButton.setFont(new Font("Corbel", Font.PLAIN, 23));
 	btnNewButton.setBounds(596, 122, 175, 29);
 	frame.getContentPane().add(btnNewButton);
+	
+	JButton btnNewButton_1 = new JButton("Admin statistics");
+	btnNewButton_1.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			AdminStatistics adminstat = new AdminStatistics();
+			adminstat.view();
+		}
+	});
+	btnNewButton_1.setBounds(562, 419, 137, 23);
+	frame.getContentPane().add(btnNewButton_1);
 	}
 }

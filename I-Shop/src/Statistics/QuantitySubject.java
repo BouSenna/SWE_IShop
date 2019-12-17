@@ -1,6 +1,6 @@
 package Statistics;
 
-public interface Subject {
+public interface QuantitySubject {
 	
 	public void registerObserver(Statistics stat);
 	public void removeObserver(Statistics stat);

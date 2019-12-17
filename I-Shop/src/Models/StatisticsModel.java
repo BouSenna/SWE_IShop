@@ -6,11 +6,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import Database.DBConnect;
-import Forms.ViewStatistics;
+import javax.swing.ListSelectionModel;
 
-public class StatisticsModel {
-	
+import Database.DBConnect;
+import Forms.AdminStatistics;
+import Forms.ViewStatistics;
+import Statistics.Statistics;
+import Statistics.StatisticsSubject;
+import net.proteanit.sql.DbUtils;
+
+public class StatisticsModel implements StatisticsSubject {
+	AdminStatistics adminstat = new AdminStatistics();
+	ArrayList<AdminStatistics> adminObs = new ArrayList<AdminStatistics>();
+			
 	public void getStatistics(int storeID) {
 		try {
 			Connection connection;
@@ -46,4 +54,72 @@ public class StatisticsModel {
 		}
 		
 	}
+	
+	public ResultSet showStatistics(String selectedOp, String selected) {
+		Connection connection = DBConnect.DBConnect(); 
+		String query="";
+		try {
+			Statement stmt1 = connection.createStatement();
+			if(selectedOp.equals("Best seller")) {
+				query = "select " +selected+"name, (initialquantity-quantity) as RemainingQuantity from product inner join brand on product.brandid = brand.brandid  order by RemainingQuantity asc";
+			
+			}
+			else if(selectedOp.equals("Lowest seller")){
+				query =  "select " +selected+"name, (initialquantity-quantity) as RemainingQuantity from product inner join brand on product.brandid = brand.brandid order by RemainingQuantity desc";
+			}
+			else {
+				query = "select count(*) from " + selected;
+			}
+			Statement stmt = connection.createStatement();
+			stmt.setMaxRows(1);
+			ResultSet resultset = stmt.executeQuery(query);
+			
+			return resultset;
+		}catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	
+	public void setChanged(ResultSet resultset, String selectedOp, String selectedEntity) {
+		registerObserver(adminstat);
+		String stat = makeFunction(selectedOp, selectedEntity);
+		resultset = showStatistics(selectedOp, selectedEntity);
+		notifyObserver(resultset, stat);
+	}
+	
+	public String makeFunction(String selectedOp, String selectedEntity) {
+		if(selectedOp.equals("Count"))
+			return "The number of " + selectedEntity;
+		else if(selectedOp.equals("Best seller"))
+			return "The best selling " + selectedEntity;
+		else
+			return "The lowest selling " + selectedEntity;
+	}
+	
+
+	@Override
+	public void registerObserver(AdminStatistics adminstat) {
+		adminObs.add(adminstat);
+		
+	}
+
+	@Override
+	public void removeObserver(AdminStatistics adminstat) {
+		int i = adminObs.indexOf(adminstat);
+		if (i >= 0)
+			adminObs.remove(i);		
+	}
+
+	@Override
+	public void notifyObserver(ResultSet resultset, String selectedEntity) {
+		for (int i = 0; i < adminObs.size(); i++) {
+			AdminStatistics obs = adminObs.get(i);
+			obs.update(resultset, selectedEntity);
+		}
+	}
+
+
 }

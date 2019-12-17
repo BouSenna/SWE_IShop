@@ -1,7 +1,7 @@
 package Statistics;
 
 
-public interface Observer {
+public interface QuantityObserver {
 
 	public void update(String ID, int quantity);
 }
