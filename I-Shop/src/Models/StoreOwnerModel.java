@@ -24,12 +24,16 @@ public class StoreOwnerModel {
 		try {
 			int temp = 0;
 			stmt = connection.createStatement();
-			stmt.execute("insert into [User] ( Email, Password) values " + "('" + UserEmail
-					+ "','" + UserPassword + "')");
-			resultset = stmt.executeQuery(
-					"select userid from [user] where email = '" + UserEmail + "' AND password = '" + UserPassword + "' ");
+			stmt.execute(
+					"insert into [User] ( Email, Password) values " + "('" + UserEmail + "','" + UserPassword + "')");
+			resultset = stmt.executeQuery("select userid from [user] where email = '" + UserEmail + "' AND password = '"
+					+ UserPassword + "' ");
 			while (resultset.next())
 				temp = resultset.getInt(1);
+      
+			/// for technical issues in the DB.
+			/// stmt.execute("SET IDENTITY_INSERT storeowner ON");
+      
 			stmt.execute("insert into StoreOwner  (OwnerName, UserID ) values" + " ('" + Name
 					+ "','" + temp + "')");
 			stmt.close();
