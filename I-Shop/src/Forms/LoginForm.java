@@ -41,10 +41,10 @@ public class LoginForm {
 		lblNewLabel.setBounds(296, 16, 238, 61);
 		frame.getContentPane().add(lblNewLabel);
 		
-		JLabel Username_label = new JLabel("Username");
-		Username_label.setFont(new Font("Corbel", Font.PLAIN, 23));
-		Username_label.setBounds(177, 107, 124, 29);
-		frame.getContentPane().add(Username_label);
+		JLabel Email_label = new JLabel("E-mail");
+		Email_label.setFont(new Font("Corbel", Font.PLAIN, 23));
+		Email_label.setBounds(177, 107, 124, 29);
+		frame.getContentPane().add(Email_label);
 		
 		JLabel Password_Label = new JLabel("Password");
 		Password_Label.setFont(new Font("Corbel", Font.PLAIN, 23));
