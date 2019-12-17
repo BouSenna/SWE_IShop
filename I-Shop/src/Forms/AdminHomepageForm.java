@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class AdminHomepageForm {
 
@@ -88,5 +90,20 @@ public class AdminHomepageForm {
 		btnAddStatistics.setBackground(Color.LIGHT_GRAY);
 		btnAddStatistics.setBounds(313, 318, 237, 39);
 		frame.getContentPane().add(btnAddStatistics);
+		
+		JLabel lblLogOut = new JLabel("Log out");
+		lblLogOut.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				frame.setVisible(false);
+				//passloginform
+				
+			}
+		});
+		lblLogOut.setForeground(new Color(30, 144, 255));
+		lblLogOut.setFont(new Font("Corbel", Font.BOLD, 14));
+		lblLogOut.setBounds(782, 441, 72, 14);
+		frame.getContentPane().add(lblLogOut);
+		
 	}
 }
