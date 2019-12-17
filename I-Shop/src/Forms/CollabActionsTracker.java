@@ -1,26 +1,51 @@
 package Forms;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
 
-public class CollabActionsTracker extends JFrame {
+import StoreOwnerCommands.UndoHandler;
 
-	private JPanel contentPane;
 
+public class CollabActionsTracker {
+	public JFrame frame;
+	private JTextArea history;
+	UndoHandler undoHandler;
+	
 	/**
-	 * Create the frame.
+	 * Create the application.
 	 */
-	public CollabActionsTracker() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+	public CollabActionsTracker(UndoHandler undoHandler) {
+		this.undoHandler = undoHandler;
+		initialize();
+		//frame.setVisible(true);
 	}
+	
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 880, 505);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
 
+		JLabel lblNewLabel = new JLabel("Collaborator action tracker");
+		lblNewLabel.setBounds(128, 16, 662, 39);
+		lblNewLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 35));
+		frame.getContentPane().add(lblNewLabel);
+
+
+		JLabel historyLabel = new JLabel("History");
+		historyLabel.setBounds(379, 71, 172, 39);
+		historyLabel.setFont(new Font("Monospaced", Font.PLAIN, 26));
+		frame.getContentPane().add(historyLabel);
+
+		history = new JTextArea();
+		history.setFont(new Font("Monospaced", Font.PLAIN, 18));
+		history.setBounds(168, 119, 535, 269);
+		frame.getContentPane().add(history);
+	}
 }
