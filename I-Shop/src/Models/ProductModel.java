@@ -10,11 +10,11 @@ import java.util.Observer;
 
 import Database.DBConnect;
 import Statistics.Statistics;
-import Statistics.Subject;
+import Statistics.QuantitySubject;
 
 ///This class is responsible for retrieving the data from the product table in the database and converting
 ///it to a meaningful concept for our software.
-public class ProductModel  implements Subject {
+public class ProductModel  implements QuantitySubject {
 	Connection connection = null;
 	Statement stmt = null;
 	ResultSet resultset = null;

@@ -1,10 +1,11 @@
 package Statistics;
 
-import Models.ProductModel;
+import java.sql.ResultSet;
+
 import Models.StatisticsModel;
 
 
-public class Statistics implements StatisticsInterface, Observer {
+public class Statistics implements StatisticsInterface, QuantityObserver {
 	public Statistics(){}
 	public void viewStat(int storeID) {
 		StatisticsModel statisticsmodel = new StatisticsModel();

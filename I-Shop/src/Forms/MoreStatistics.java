@@ -115,7 +115,8 @@ public class MoreStatistics {
 				String selectedOp = oprationcomboBox.getSelectedItem().toString();
 				String selected = comboBox.getSelectedItem().toString();
 				StatisticsModel statisticsmodel = new StatisticsModel();
-				table.setModel(DbUtils.resultSetToTableModel(statisticsmodel.showStatistics(selectedOp, selected)));
+				ResultSet resultset = statisticsmodel.showStatistics(selectedOp, selected);
+				table.setModel(DbUtils.resultSetToTableModel(resultset));
 				scrollPane.setViewportView(table);
 				table.setCellSelectionEnabled(true);
 			    ListSelectionModel cellSelectionModel = table.getSelectionModel();
@@ -133,6 +134,12 @@ public class MoreStatistics {
 		JButton btnAddStatistics = new JButton("Add statistics");
 		btnAddStatistics.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				String selectedOp = oprationcomboBox.getSelectedItem().toString();
+				String selectedEntity = comboBox.getSelectedItem().toString();
+				StatisticsModel statisticsmodel = new StatisticsModel();
+				String stat = statisticsmodel.makeFunction(selectedOp, selectedEntity);
+				ResultSet resultset = statisticsmodel.showStatistics(selectedOp, selectedEntity);
+				statisticsmodel.setChanged(resultset, selectedOp, selectedEntity);
 				
 			}
 			

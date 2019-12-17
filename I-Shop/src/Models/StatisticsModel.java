@@ -9,11 +9,16 @@ import java.util.ArrayList;
 import javax.swing.ListSelectionModel;
 
 import Database.DBConnect;
+import Forms.AdminStatistics;
 import Forms.ViewStatistics;
+import Statistics.Statistics;
+import Statistics.StatisticsSubject;
 import net.proteanit.sql.DbUtils;
 
-public class StatisticsModel {// more stats in each store yes,no in admin -->add stat in stores
-	
+public class StatisticsModel implements StatisticsSubject {
+	AdminStatistics adminstat = new AdminStatistics();
+	ArrayList<AdminStatistics> adminObs = new ArrayList<AdminStatistics>();
+			
 	public void getStatistics(int storeID) {
 		try {
 			Connection connection;
@@ -77,4 +82,44 @@ public class StatisticsModel {// more stats in each store yes,no in admin -->add
 		return null;
 		
 	}
+	
+	public void setChanged(ResultSet resultset, String selectedOp, String selectedEntity) {
+		registerObserver(adminstat);
+		String stat = makeFunction(selectedOp, selectedEntity);
+		resultset = showStatistics(selectedOp, selectedEntity);
+		notifyObserver(resultset, stat);
+	}
+	
+	public String makeFunction(String selectedOp, String selectedEntity) {
+		if(selectedOp.equals("Count"))
+			return "The number of " + selectedEntity;
+		else if(selectedOp.equals("Best seller"))
+			return "The best selling " + selectedEntity;
+		else
+			return "The lowest selling " + selectedEntity;
+	}
+	
+
+	@Override
+	public void registerObserver(AdminStatistics adminstat) {
+		adminObs.add(adminstat);
+		
+	}
+
+	@Override
+	public void removeObserver(AdminStatistics adminstat) {
+		int i = adminObs.indexOf(adminstat);
+		if (i >= 0)
+			adminObs.remove(i);		
+	}
+
+	@Override
+	public void notifyObserver(ResultSet resultset, String selectedEntity) {
+		for (int i = 0; i < adminObs.size(); i++) {
+			AdminStatistics obs = adminObs.get(i);
+			obs.update(resultset, selectedEntity);
+		}
+	}
+
+
 }
