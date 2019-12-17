@@ -8,6 +8,9 @@ import javax.swing.JTextArea;
 
 import StoreOwnerCommands.UndoHandler;
 
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CollabActionsTracker {
 	public JFrame frame;
@@ -37,6 +40,14 @@ public class CollabActionsTracker {
 		lblNewLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 35));
 		frame.getContentPane().add(lblNewLabel);
 
+		JButton btnNewButton = new JButton("UNDO");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				undoHandler.undo();
+			}
+		});
+		btnNewButton.setBounds(345, 404, 184, 29);
+		frame.getContentPane().add(btnNewButton);
 
 		JLabel historyLabel = new JLabel("History");
 		historyLabel.setBounds(379, 71, 172, 39);
