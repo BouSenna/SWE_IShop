@@ -25,6 +25,10 @@ public class CollabActionsTracker {
 		initialize();
 		//frame.setVisible(true);
 	}
+
+	public void addUpdates(String str) {
+		history.append(str);
+	}
 	
 	/**
 	 * Initialize the contents of the frame.
