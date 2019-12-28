@@ -2,7 +2,7 @@ package Users;
 
 import Controllers.StoreOwnerController;
 
-public class StoreOwner extends User implements StoreOwnerInterface {
+public class StoreOwner extends User {
 	private String mName;
 	private int mNumOfStores;
 	private static int mLicense = 1;
@@ -35,7 +35,7 @@ public class StoreOwner extends User implements StoreOwnerInterface {
 		mUserEmail = email;
 		mUserPassword = password;
 		mName = name;
-		new StoreOwnerController().register( mUserEmail, mUserPassword, mName);
+		new StoreOwnerController().register(mUserEmail, mUserPassword, mName);
 		;
 	}
 }

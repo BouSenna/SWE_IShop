@@ -1,6 +1,6 @@
 package Users;
 
-public class Collaborator extends User implements CollaboratorInterface {
+public class Collaborator extends User {
 	String mName;
 	int mLicense;
 
