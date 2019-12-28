@@ -2,7 +2,7 @@ package Users;
 
 import Models.CustomerModel;
 
-public class Customer extends User implements CustomerInterface {
+public class Customer extends User {
 	private String mName;
 	private String mAddress;
 	private String mCreditCardInfo;

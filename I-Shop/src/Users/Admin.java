@@ -10,7 +10,7 @@ import java.util.List;
 
 import Database.DBConnect;
 
-public class Admin extends User implements AdminInterface {
+public class Admin extends User {
 	private String mName;
 	Connection connection = null;
 	Statement stmt = null;
